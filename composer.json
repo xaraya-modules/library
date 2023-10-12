@@ -1,0 +1,21 @@
+{
+    "name": "xaraya/library",
+    "type": "xaraya-module",
+    "description": "Library of books from Calibre or elsewhere",
+    "homepage": "https://github.com/xaraya-modules/library",
+    "license": "GPL-2.0-or-later",
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "conflict": {
+        "xaraya/core": "<2.4.1"
+    },
+    "require-dev": {
+        "mikespub/php-epub-meta": "dev-main"
+    },
+    "autoload": {
+        "classmap": ["./"]
+    }
+}
