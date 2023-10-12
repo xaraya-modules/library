@@ -13,6 +13,27 @@
         <!-- show the list of main objects -->
         <div class="xar-mod-object-body">
             <!-- xar:template type="module" file="main_objects"/-->
+            <xar:if condition="empty($name)">
+                <h3>Available Databases</h3>
+                <ul>
+                    <xar:foreach in="$databases" value="$database">
+                    <li><a href="#xarController::URL('library', 'user', 'main', ['name' => $database['name']])#">#$database['description']#</a></li>
+                    </xar:foreach>
+                </ul>
+            <xar:else />
+                <h3>#$description#</h3>
+                <ul>
+                    <!--
+                    <xar:foreach in="$tables" value="$table">
+                    <li>#$table#</li>
+                    </xar:foreach>
+                    -->
+                    <xar:foreach in="$books" value="$book">
+                        <xar:set name="output">var_export($book, true)</xar:set>
+                        <li>#$output#</li>
+                    </xar:foreach>
+                </ul>
+            </xar:if>
         </div>
     </div>
 </xar:template>

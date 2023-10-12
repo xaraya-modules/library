@@ -15,6 +15,9 @@ namespace Xaraya\Modules\Library;
 use DataObjectDescriptor;
 use DataObjectMaster;
 use DataPropertyMaster;
+use Query;
+use xarDB;
+use xarModVars;
 use xarServer;
 use xarVar;
 use sys;
@@ -28,8 +31,73 @@ class UserApi
 {
     protected static $moduleid = 18257;
     protected static $objects = [];
+    protected static $databases = [];
+    protected static $connections = [];
 
-    public static function get_objects()
+    public static function getDatabases()
+    {
+        if (empty(static::$databases)) {
+            static::$databases = unserialize(xarModVars::get('library', 'databases'));
+        }
+        return static::$databases;
+    }
+
+    public static function connectDatabase($name)
+    {
+        if (!empty(static::$connections[$name])) {
+            return static::$connections[$name];
+        }
+        $databases = self::getDatabases();
+        if (empty($databases[$name])) {
+            return null;
+        }
+        $database = $databases[$name];
+        if (empty($database['filepath']) || !is_file($database['filepath'])) {
+            return null;
+        }
+        // open a new database connection
+        $args = ['databaseType' => 'sqlite3', 'databaseName' => $database['filepath']];
+        $conn = xarDB::newConn($args);
+        // save the connection index
+        $dbConnIndex = xarDB::$count - 1;
+        static::$connections[$name] = $dbConnIndex;
+        // return the connection index
+        return $dbConnIndex;
+    }
+
+    public static function getTables($dbConnIndex)
+    {
+        $result = [];
+        if (empty($dbConnIndex)) {
+            return $result;
+        }
+        //if (!is_numeric($dbConnIndex)) {
+        //    $dbConnIndex = self::connectDatabase($dbConnIndex);
+        //}
+        $conn = xarDB::getConn($dbConnIndex);
+        $dbInfo = $conn->getDatabaseInfo();
+        $tables = $dbInfo->getTables();
+        foreach ($tables as $table) {
+            $result[] = $table->getName();
+        }
+        return $result;
+    }
+
+    public static function getBooks($name)
+    {
+        $result = [];
+        $dbConnIndex = self::connectDatabase($name);
+        if (empty($dbConnIndex)) {
+            return $result;
+        }
+        $q = new Query('SELECT', 'books', ['id', 'title'], $dbConnIndex);
+        if (!$q->run()) {
+            return;
+        }
+        return $q->output();
+    }
+
+    public static function getObjects()
     {
         if (!empty(self::$objects)) {
             return self::$objects;
@@ -52,7 +120,7 @@ class UserApi
      */
     public static function itemtypes(array $args = [])
     {
-        $objects = self::get_objects();
+        $objects = self::getObjects();
         $itemtypes = [];
         foreach ($objects as $name => $objectinfo) {
             $itemtypes[$objectinfo['itemtype']] = [

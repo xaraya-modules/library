@@ -15,7 +15,7 @@ use Xaraya\Modules\Library\UserGui;
  *
  * @uses Xaraya\Modules\Library\UserGui::main()
  * @param array $args
- * @return string template output in HTML
+ * @return mixed template output in HTML
  */
 function library_user_main(array $args = [])
 {

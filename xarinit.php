@@ -10,6 +10,11 @@
  * @link http://xaraya.info/index.php/release/18257.html
  */
 
+namespace Xaraya\Modules\Library;
+
+use xarMod;
+use xarModVars;
+
 /**
  * Initialise this module
  *
@@ -18,6 +23,23 @@
  */
 function library_init()
 {
+    $module = 'library';
+    $objects = [
+    ];
+
+    if (!xarMod::apiFunc('modules', 'admin', 'standardinstall', ['module' => $module, 'objects' => $objects])) {
+        return false;
+    }
+
+    // Set up module variables
+    $databases = [];
+    $databases['test'] = [
+        'name' => 'test',
+        'description' => 'Test Database',
+        'filepath' => __DIR__ . '/xardata/metadata.db',
+    ];
+    xarModVars::set($module, 'databases', serialize($databases));
+
     // Installation complete; check for upgrades
     return library_upgrade('2.4.0');
 }
@@ -47,7 +69,7 @@ function library_deactivate()
 /**
  * Upgrade this module from an old version
  *
- * @param oldVersion
+ * @param string $oldversion
  * @return boolean true on success, false on failure
  */
 function library_upgrade($oldversion)
