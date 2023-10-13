@@ -23,11 +23,6 @@
             <xar:else />
                 <h3>#$description#</h3>
                 <ul>
-                    <!--
-                    <xar:foreach in="$tables" value="$table">
-                    <li>#$table#</li>
-                    </xar:foreach>
-                    -->
                     <xar:foreach in="$books" value="$book">
                         <xar:set name="output">var_export($book, true)</xar:set>
                         <li>#$output#</li>

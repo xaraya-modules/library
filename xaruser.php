@@ -8,7 +8,9 @@
  * @link http://xaraya.info/index.php/release/18257.html
  */
 sys::import('modules.library.class.usergui');
+sys::import('modules.library.class.import');
 use Xaraya\Modules\Library\UserGui;
+use Xaraya\Modules\Library\Import;
 
 /**
  * User main
@@ -20,4 +22,16 @@ use Xaraya\Modules\Library\UserGui;
 function library_user_main(array $args = [])
 {
     return UserGui::main($args);
+}
+
+/**
+ * User import
+ *
+ * @uses Xaraya\Modules\Library\Import::main()
+ * @param array $args
+ * @return mixed template output in HTML
+ */
+function library_user_import(array $args = [])
+{
+    return Import::main($args);
 }

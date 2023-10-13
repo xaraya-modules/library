@@ -25,6 +25,23 @@ function library_init()
 {
     $module = 'library';
     $objects = [
+        /**
+        'lb_authors',
+        'lb_books',
+        'lb_books_authors',
+        'lb_books_languages',
+        'lb_books_publishers',
+        'lb_books_ratings',
+        'lb_books_series',
+        'lb_books_tags',
+        'lb_data',
+        'lb_identifiers',
+        'lb_languages',
+        'lb_publishers',
+        'lb_ratings',
+        'lb_series',
+        'lb_tags',
+         */
     ];
 
     if (!xarMod::apiFunc('modules', 'admin', 'standardinstall', ['module' => $module, 'objects' => $objects])) {
@@ -36,7 +53,8 @@ function library_init()
     $databases['test'] = [
         'name' => 'test',
         'description' => 'Test Database',
-        'filepath' => __DIR__ . '/xardata/metadata.db',
+        //'filepath' => __DIR__ . '/xardata/metadata.db',
+        'filepath' => 'code/modules/library/xardata/metadata.db',
     ];
     xarModVars::set($module, 'databases', serialize($databases));
 
@@ -91,5 +109,5 @@ function library_upgrade($oldversion)
  */
 function library_delete()
 {
-    return true;
+    return xarMod::apiFunc('modules', 'admin', 'standarddeinstall', ['module' => 'library']);
 }

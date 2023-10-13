@@ -56,7 +56,7 @@ class UserApi
             return null;
         }
         // open a new database connection
-        $args = ['databaseType' => 'sqlite3', 'databaseName' => $database['filepath']];
+        $args = self::getDbConnArgs($name);
         $conn = xarDB::newConn($args);
         // save the connection index
         $dbConnIndex = xarDB::$count - 1;
@@ -65,15 +65,23 @@ class UserApi
         return $dbConnIndex;
     }
 
-    public static function getTables($dbConnIndex)
+    /**
+     * Callable specified in object config to get dbConnArgs
+     */
+    public static function getDbConnArgs($object = null)
+    {
+        $databases = self::getDatabases();
+        $database = $databases['test'];
+        return ['databaseType' => 'sqlite3', 'databaseName' => $database['filepath']];
+    }
+
+    public static function getTables($name)
     {
         $result = [];
+        $dbConnIndex = self::connectDatabase($name);
         if (empty($dbConnIndex)) {
             return $result;
         }
-        //if (!is_numeric($dbConnIndex)) {
-        //    $dbConnIndex = self::connectDatabase($dbConnIndex);
-        //}
         $conn = xarDB::getConn($dbConnIndex);
         $dbInfo = $conn->getDatabaseInfo();
         $tables = $dbInfo->getTables();

@@ -24,6 +24,7 @@ class UserGui
 {
     protected static $moduleid = 18257;
     protected static $objects = [];
+    protected static $dbConnIndex = 0;
 
     public static function main(array $args = [])
     {
