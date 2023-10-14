@@ -21,6 +21,7 @@ use xarModVars;
 use sys;
 
 sys::import('modules.dynamicdata.class.objects.master');
+sys::import('modules.dynamicdata.class.objects.virtual');
 
 /**
  * Class to import the library database structure
@@ -99,6 +100,9 @@ class Import
             'table' => $table,
             'dbConnIndex' => static::$dbConnIndex,
             'config' => serialize($config),
+            // ensure proper initialisation even when autoload is disabled
+            'class' => 'Xaraya\Modules\Library\LibraryObject',
+            'filepath' => 'modules/library/class/object.php',
         ]);
         // set the actual connection index here
         //$descriptor->set('dbConnIndex', static::$dbConnIndex);
@@ -130,6 +134,9 @@ class Import
             'table' => $table,
             'dbConnIndex' => static::$dbConnIndex,
             'config' => serialize($config),
+            // ensure proper initialisation even when autoload is disabled
+            'class' => 'Xaraya\Modules\Library\LibraryObject',
+            'filepath' => 'modules/library/class/object.php',
         ]);
         // set the actual connection index here
         //$descriptor->set('dbConnIndex', static::$dbConnIndex);
@@ -177,7 +184,7 @@ class Import
                 'type' => '18283',
                 'source' => '',
                 'defaultvalue' => $default,
-                'status' => '2',
+                'status' => ($table == 'authors') ? '1' : '2',
             ]);
             // add one-to-many relationship for links
             $propertyargs = static::$links[$link]->get('propertyargs');

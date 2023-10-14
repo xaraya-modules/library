@@ -23,11 +23,13 @@
             <xar:else />
                 <h3>#$description#</h3>
                 <ul>
-                    <xar:foreach in="$books" value="$book">
-                        <xar:set name="output">var_export($book, true)</xar:set>
-                        <li>#$output#</li>
+                    <xar:foreach in="$objects" key="$objectname" value="$objectinfo">
+                        <xar:set name="link">xarServer::getObjectURL($objectname, 'view')</xar:set>
+                        <li><a href="#$link#">#$objectinfo['label']#</a></li>
                     </xar:foreach>
                 </ul>
+                <!-- don't show a newlink here -->
+                <xar:data-view object="$objectlist" linktype="object" newlink=""/>
             </xar:if>
         </div>
     </div>

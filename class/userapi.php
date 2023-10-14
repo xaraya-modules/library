@@ -24,6 +24,7 @@ use sys;
 sys::import('modules.dynamicdata.class.objects.master');
 sys::import('modules.dynamicdata.class.traits.userapi');
 sys::import('xaraya.traits.databasetrait');
+sys::import('xaraya.structures.query');
 
 /**
  * Class to handle the library user API
@@ -65,6 +66,18 @@ class UserApi implements DatabaseInterface, UserApiInterface
     {
         static::setCurrentDatabase($name);
         $object = DataObjectMaster::getObject(['name' => static::$prefix . 'books']);
+        return $object;
+    }
+
+    /**
+     * Summary of getBooksObjectList
+     * @param string $name
+     * @return DataObject|null
+     */
+    public static function getBooksObjectList($name)
+    {
+        static::setCurrentDatabase($name);
+        $object = DataObjectMaster::getObjectList(['name' => static::$prefix . 'books']);
         return $object;
     }
 }

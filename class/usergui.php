@@ -16,6 +16,7 @@ use xarVar;
 use sys;
 
 sys::import('modules.dynamicdata.class.objects.master');
+sys::import('modules.library.class.userapi');
 
 /**
  * Class to handle the library user GUI
@@ -38,8 +39,12 @@ class UserGui
             $args = array_merge($args, $database);
             $args['dbConnIndex'] = UserApi::connectDatabase($args['name']);
             //$args['tables'] = UserApi::getDatabaseTables($args['name']);
-            $args['books'] = UserApi::getBooksQuery($args['name']);
-            $args['object'] = UserApi::getBooksObject($args['name']);
+            //$args['books'] = UserApi::getBooksQuery($args['name']);
+            $args['objectlist'] = UserApi::getBooksObjectList($args['name']);
+            $args['objectlist']->getItems(['fieldlist' => ['title', 'timestamp', 'pubdate', 'authors']]);
+            $args['objects'] = UserApi::getModuleObjects();
+        } else {
+            unset($args['name']);
         }
         $args['description'] ??= '';
         return $args;
