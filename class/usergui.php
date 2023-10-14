@@ -22,21 +22,24 @@ sys::import('modules.dynamicdata.class.objects.master');
  */
 class UserGui
 {
-    protected static $moduleid = 18257;
-    protected static $objects = [];
-    protected static $dbConnIndex = 0;
-
+    /**
+     * User main GUI function
+     * @param array<string, mixed> $args
+     * @return array<mixed>
+     */
     public static function main(array $args = [])
     {
         xarVar::fetch('name', 'str:1', $args['name'], null, xarVar::DONT_SET);
 
         $args['databases'] = UserApi::getDatabases();
         if (!empty($args['name']) && !empty($args['databases']) && !empty($args['databases'][$args['name']])) {
+            UserApi::setCurrentDatabase($args['name']);
             $database = $args['databases'][$args['name']];
             $args = array_merge($args, $database);
             $args['dbConnIndex'] = UserApi::connectDatabase($args['name']);
-            //$args['tables'] = UserApi::getTables($args['dbConnIndex']);
-            $args['books'] = UserApi::getBooks($args['name']);
+            //$args['tables'] = UserApi::getDatabaseTables($args['name']);
+            $args['books'] = UserApi::getBooksQuery($args['name']);
+            $args['object'] = UserApi::getBooksObject($args['name']);
         }
         $args['description'] ??= '';
         return $args;

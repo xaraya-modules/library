@@ -16,7 +16,7 @@ use Xaraya\Modules\Library\Import;
  * User main
  *
  * @uses Xaraya\Modules\Library\UserGui::main()
- * @param array $args
+ * @param array<string, mixed> $args
  * @return mixed template output in HTML
  */
 function library_user_main(array $args = [])
@@ -28,7 +28,7 @@ function library_user_main(array $args = [])
  * User import
  *
  * @uses Xaraya\Modules\Library\Import::main()
- * @param array $args
+ * @param array<string, mixed> $args
  * @return mixed template output in HTML
  */
 function library_user_import(array $args = [])

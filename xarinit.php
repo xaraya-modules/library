@@ -53,10 +53,13 @@ function library_init()
     $databases['test'] = [
         'name' => 'test',
         'description' => 'Test Database',
-        //'filepath' => __DIR__ . '/xardata/metadata.db',
-        'filepath' => 'code/modules/library/xardata/metadata.db',
+        'databaseType' => 'sqlite3',
+        //'databaseName' => __DIR__ . '/xardata/metadata.db',
+        'databaseName' => 'code/modules/library/xardata/metadata.db',
+        //... other DSN parameters for mysql/mariadb
     ];
     xarModVars::set($module, 'databases', serialize($databases));
+    xarModVars::set($module, 'dbName', 'test');
 
     // Installation complete; check for upgrades
     return library_upgrade('2.4.0');

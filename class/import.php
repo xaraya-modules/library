@@ -13,6 +13,7 @@
 namespace Xaraya\Modules\Library;
 
 //use Xaraya\DataObject\Export\PhpExporter;
+use DataObject;
 use DataObjectMaster;
 use TableObjectDescriptor;
 use Throwable;
@@ -26,22 +27,29 @@ sys::import('modules.dynamicdata.class.objects.master');
  */
 class Import
 {
-    protected static $moduleid = 18257;
-    protected static $itemtype = 0;
-    protected static $prefix = 'lb_';
-    protected static $tables = [];
-    protected static $links = [];
-    protected static $dbConnIndex = 0;
-    protected static $dataobject = null;
-    protected static $dataproperty = null;
+    protected static int $moduleid = 18257;
+    protected static int $itemtype = 0;
+    protected static string $prefix = 'lb_';
+    /** @var array<string, mixed> */
+    protected static array $tables = [];
+    /** @var array<string, mixed> */
+    protected static array $links = [];
+    protected static ?int $dbConnIndex = 0;
+    protected static ?DataObject $dataobject = null;
+    protected static ?DataObject $dataproperty = null;
 
+    /**
+     * User import GUI function
+     * @param array<string, mixed> $args
+     * @return array<mixed>
+     */
     public static function main(array $args = [])
     {
         // use 'test' database to import
         $name = $args['name'] ?? 'test';
 
         $databases = UserApi::getDatabases();
-        $tables = UserApi::getTables($name);
+        $tables = UserApi::getDatabaseTables($name);
         static::$dbConnIndex = UserApi::connectDatabase($name);
 
         $primary = ['authors', 'books', 'data', 'identifiers', 'languages', 'publishers', 'ratings', 'series', 'tags'];
@@ -74,6 +82,11 @@ class Import
         return $args;
     }
 
+    /**
+     * Summary of importTable
+     * @param string $table
+     * @return string
+     */
     public static function importTable($table)
     {
         static::$itemtype += 1;
@@ -97,6 +110,13 @@ class Import
         return $filepath;
     }
 
+    /**
+     * Summary of importLink
+     * @param string $table
+     * @param string $first
+     * @param string $second
+     * @return string
+     */
     public static function importLink($table, $first, $second)
     {
         $link = $first . '_' . $second;
@@ -121,6 +141,10 @@ class Import
         return $filepath;
     }
 
+    /**
+     * Summary of linkObjects
+     * @return void
+     */
     public static function linkObjects()
     {
         foreach (static::$tables as $table => $descriptor) {
@@ -179,6 +203,11 @@ class Import
         }
     }
 
+    /**
+     * Summary of getLinkField
+     * @param string $link
+     * @return string
+     */
     public static function getLinkField($link)
     {
         $descriptor = static::$links[$link];
@@ -193,6 +222,11 @@ class Import
         return $field;
     }
 
+    /**
+     * Summary of getTitleField
+     * @param string $table
+     * @return string
+     */
     public static function getTitleField($table)
     {
         $descriptor = static::$tables[$table];
@@ -207,12 +241,16 @@ class Import
         return $field;
     }
 
+    /**
+     * Summary of createObjects
+     * @return void
+     */
     public static function createObjects()
     {
         static::$dataobject ??= DataObjectMaster::getObject(['name' => 'objects']);
-        static::$dataobject->dataquery->debugflag = true;
+        //static::$dataobject->dataquery->debugflag = true;
         static::$dataproperty ??= DataObjectMaster::getObject(['name' => 'properties']);
-        static::$dataproperty->dataquery->debugflag = true;
+        //static::$dataproperty->dataquery->debugflag = true;
         $dd_objects = [];
         foreach (static::$tables as $table => $descriptor) {
             $objectid = static::createObject($descriptor);
@@ -228,8 +266,15 @@ class Import
         xarModVars::set('library', 'dd_objects', serialize($dd_objects));
     }
 
+    /**
+     * Summary of createObject
+     * @param TableObjectDescriptor $descriptor
+     * @return int|mixed
+     */
     public static function createObject($descriptor)
     {
+        assert(isset(static::$dataobject));
+        assert(isset(static::$dataproperty));
         $info = $descriptor->getArgs();
         $propertyargs = $info['propertyargs'];
         unset($info['propertyargs']);
@@ -250,6 +295,10 @@ class Import
         return $objectid;
     }
 
+    /**
+     * Summary of saveObjects
+     * @return void
+     */
     public static function saveObjects()
     {
         foreach (static::$tables as $table => $descriptor) {
@@ -264,6 +313,12 @@ class Import
         }
     }
 
+    /**
+     * Summary of exportDefinition
+     * @param TableObjectDescriptor $descriptor
+     * @param string $filepath
+     * @return string
+     */
     public static function exportDefinition($descriptor, $filepath)
     {
         $info = $descriptor->getArgs();
@@ -295,6 +350,10 @@ class Import
         return '<pre>' . str_replace('<', '&lt;', $output) . '</pre>';
     }
 
+    /**
+     * Summary of deleteObjects
+     * @return void
+     */
     public static function deleteObjects()
     {
         $objects = DataObjectMaster::getObjects();
