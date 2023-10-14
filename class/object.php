@@ -23,7 +23,12 @@ sys::import('modules.library.class.userapi');
 
 class LibraryObject extends DataObject
 {
-    public function action()
+    /**
+     * Summary of action
+     * @param array<string, mixed> $args
+     * @return mixed
+     */
+    public function action(array $args = [])
     {
         if ($this->name == 'lb_books') {
             return "Action!";
@@ -38,6 +43,7 @@ class LibraryObjectList extends DataObjectList
     /**
      * Get List to fill showView template options
      *
+     * @param mixed $itemid
      * @return array<mixed>
      */
     public function getViewOptions($itemid = null)

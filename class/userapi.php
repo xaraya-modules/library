@@ -17,6 +17,7 @@ use Xaraya\Core\Traits\DatabaseTrait;
 use Xaraya\DataObject\Traits\UserApiInterface;
 use Xaraya\DataObject\Traits\UserApiTrait;
 use DataObject;
+use DataObjectList;
 use DataObjectMaster;
 use Query;
 use sys;
@@ -72,7 +73,7 @@ class UserApi implements DatabaseInterface, UserApiInterface
     /**
      * Summary of getBooksObjectList
      * @param string $name
-     * @return DataObject|null
+     * @return DataObjectList|null
      */
     public static function getBooksObjectList($name)
     {
