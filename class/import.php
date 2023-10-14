@@ -12,16 +12,17 @@
 
 namespace Xaraya\Modules\Library;
 
-//use Xaraya\DataObject\Export\PhpExporter;
-use DataObject;
+use Xaraya\DataObject\Export\PhpExporter;
+use Xaraya\DataObject\Import\PhpImporter;
 use DataObjectMaster;
 use TableObjectDescriptor;
-use Throwable;
 use xarModVars;
 use sys;
 
 sys::import('modules.dynamicdata.class.objects.master');
 sys::import('modules.dynamicdata.class.objects.virtual');
+sys::import('modules.dynamicdata.class.export.generic');
+sys::import('modules.dynamicdata.class.import.generic');
 
 /**
  * Class to import the library database structure
@@ -36,8 +37,6 @@ class Import
     /** @var array<string, mixed> */
     protected static array $links = [];
     protected static ?int $dbConnIndex = 0;
-    protected static ?DataObject $dataobject = null;
-    protected static ?DataObject $dataproperty = null;
 
     /**
      * User import GUI function
@@ -57,7 +56,8 @@ class Import
         $status = [];
         foreach ($tables as $table) {
             if (in_array($table, $primary)) {
-                $status[] = $table . ' ' . static::importTable($table);
+                //$status[] = $table . ' ' . static::importTable($table);
+                $status[] = $table . ' LOADED ' . static::loadTable($table);
                 continue;
             }
             if (!str_ends_with($table, '_link')) {
@@ -69,11 +69,12 @@ class Import
                 $status[] = $table . ' SKIPPED';
                 continue;
             }
-            $status[] = $table . ' ' . static::importLink($table, $first, $second);
+            //$status[] = $table . ' ' . static::importLink($table, $first, $second);
+            $status[] = $table . ' LOADED ' . static::loadLink($table, $first, $second);
         }
-        static::linkObjects();
+        //static::linkObjects();
         static::createObjects();
-        static::saveObjects();
+        //static::saveObjects();
         //static::deleteObjects();
 
         $args = array_merge($args, $databases[$name]);
@@ -81,6 +82,35 @@ class Import
         $args['name'] = $name;
         $args['description'] ??= '';
         return $args;
+    }
+
+    /**
+     * Summary of loadTable
+     * @param string $table
+     * @return string
+     */
+    public static function loadTable($table)
+    {
+        $filepath = dirname(__DIR__) . '/xardata/' . static::$prefix . $table . '-def.php';
+        $descriptor = PhpImporter::importDefinition($filepath);
+        static::$tables[$table] = $descriptor;
+        return basename($filepath);
+    }
+
+    /**
+     * Summary of loadLink
+     * @param string $table
+     * @param string $first
+     * @param string $second
+     * @return string
+     */
+    public static function loadLink($table, $first, $second)
+    {
+        $link = $first . '_' . $second;
+        $filepath = dirname(__DIR__) . '/xardata/' . static::$prefix . $link . '-def.php';
+        $descriptor = PhpImporter::importDefinition($filepath);
+        static::$links[$link] = $descriptor;
+        return basename($filepath);
     }
 
     /**
@@ -104,13 +134,8 @@ class Import
             'class' => 'Xaraya\Modules\Library\LibraryObject',
             'filepath' => 'modules/library/class/object.php',
         ]);
-        // set the actual connection index here
-        //$descriptor->set('dbConnIndex', static::$dbConnIndex);
-        //$descriptor->set('config', serialize($config));
         static::$tables[$table] = $descriptor;
-        //$dataobject = new DataObject($descriptor);
         $filepath = dirname(__DIR__) . '/xardata/' . static::$prefix . $table . '-def.php';
-        //return static::exportDefinition($dataobject, $filepath);
         return $filepath;
     }
 
@@ -138,13 +163,8 @@ class Import
             'class' => 'Xaraya\Modules\Library\LibraryObject',
             'filepath' => 'modules/library/class/object.php',
         ]);
-        // set the actual connection index here
-        //$descriptor->set('dbConnIndex', static::$dbConnIndex);
-        //$descriptor->set('config', serialize($config));
         static::$links[$link] = $descriptor;
-        //$dataobject = new DataObject($descriptor);
         $filepath = dirname(__DIR__) . '/xardata/' . static::$prefix . $link . '-def.php';
-        //return static::export_def($dataobject, $filepath);
         return $filepath;
     }
 
@@ -254,52 +274,19 @@ class Import
      */
     public static function createObjects()
     {
-        static::$dataobject ??= DataObjectMaster::getObject(['name' => 'objects']);
-        //static::$dataobject->dataquery->debugflag = true;
-        static::$dataproperty ??= DataObjectMaster::getObject(['name' => 'properties']);
-        //static::$dataproperty->dataquery->debugflag = true;
         $dd_objects = [];
         foreach (static::$tables as $table => $descriptor) {
-            $objectid = static::createObject($descriptor);
+            $objectid = PhpImporter::createObject($descriptor);
             //static::$tables[$table]->set('objectid', $objectid);
             $dd_objects[$descriptor->get('name')] = $objectid;
         }
         foreach (static::$links as $link => $descriptor) {
-            $objectid = static::createObject($descriptor);
+            $objectid = PhpImporter::createObject($descriptor);
             //static::$links[$link]->set('objectid', $objectid);
             $dd_objects[$descriptor->get('name')] = $objectid;
         }
         // see modules standardinstall - used by standarddeinstall later
         xarModVars::set('library', 'dd_objects', serialize($dd_objects));
-    }
-
-    /**
-     * Summary of createObject
-     * @param TableObjectDescriptor $descriptor
-     * @return int|mixed
-     */
-    public static function createObject($descriptor)
-    {
-        assert(isset(static::$dataobject));
-        assert(isset(static::$dataproperty));
-        $info = $descriptor->getArgs();
-        $propertyargs = $info['propertyargs'];
-        unset($info['propertyargs']);
-        $objectid = static::$dataobject->createItem($info);
-        $sequence = 1;
-        foreach ($propertyargs as $propertyarg) {
-            $propertyarg = array_filter($propertyarg, function ($key) {
-                return !str_starts_with($key, 'object_');
-            }, ARRAY_FILTER_USE_KEY);
-            $propertyarg['itemid'] = 0;
-            $propertyarg['objectid'] = $objectid;
-            unset($propertyarg['_objectid']);
-            $propertyarg['seq'] ??= $sequence;
-            $propertyarg['configuration'] ??= '';
-            $propid = static::$dataproperty->createItem($propertyarg);
-            $sequence += 1;
-        }
-        return $objectid;
     }
 
     /**
@@ -311,50 +298,13 @@ class Import
         foreach (static::$tables as $table => $descriptor) {
             //$dataobject = new DataObject($descriptor);
             $filepath = dirname(__DIR__) . '/xardata/' . $descriptor->get('name') . '-def.php';
-            static::exportDefinition($descriptor, $filepath);
+            PhpExporter::exportDefinition($descriptor, $filepath);
         }
         foreach (static::$links as $link => $descriptor) {
             //$dataobject = new DataObject($descriptor);
             $filepath = dirname(__DIR__) . '/xardata/' . $descriptor->get('name') . '-def.php';
-            static::exportDefinition($descriptor, $filepath);
+            PhpExporter::exportDefinition($descriptor, $filepath);
         }
-    }
-
-    /**
-     * Summary of exportDefinition
-     * @param TableObjectDescriptor $descriptor
-     * @param string $filepath
-     * @return string
-     */
-    public static function exportDefinition($descriptor, $filepath)
-    {
-        $info = $descriptor->getArgs();
-        $propertyargs = $info['propertyargs'];
-        unset($info['propertyargs']);
-        $arrayargs = ['access', 'config', 'sources', 'relations', 'objects', 'category'];
-        foreach ($arrayargs as $name) {
-            if (!empty($info[$name]) && is_string($info[$name])) {
-                try {
-                    $value = unserialize($info[$name]);
-                    if ($value !== false) {
-                        $info[$name] = $value;
-                    }
-                } catch (Throwable $e) {
-                }
-            }
-        }
-        $output = "<?php\n\n\$object = " . var_export($info, true) . ";\n";
-        $output .= "\$properties = array();\n";
-        foreach ($propertyargs as $propertyarg) {
-            $propertyarg = array_filter($propertyarg, function ($key) {
-                return !str_starts_with($key, 'object_');
-            }, ARRAY_FILTER_USE_KEY);
-            unset($propertyarg['_objectid']);
-            $output .= "\$properties[] = " . var_export($propertyarg, true) . ";\n";
-        }
-        $output .= "\$object['propertyargs'] = \$properties;\nreturn \$object;\n";
-        file_put_contents($filepath, $output);
-        return '<pre>' . str_replace('<', '&lt;', $output) . '</pre>';
     }
 
     /**
