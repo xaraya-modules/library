@@ -45,6 +45,20 @@ class Import
      */
     public static function main(array $args = [])
     {
+        $data = [];
+        $data['tables'] = [];
+        $data['name'] = 'done';
+        $data['description'] = 'Already done...';
+        return $data;
+    }
+
+    /**
+     * User import GUI function
+     * @param array<string, mixed> $args
+     * @return array<mixed>
+     */
+    public static function importMain(array $args = [])
+    {
         // use 'test' database to import
         $name = $args['name'] ?? 'test';
 

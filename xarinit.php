@@ -25,7 +25,6 @@ function library_init()
 {
     $module = 'library';
     $objects = [
-        /**
         'lb_authors',
         'lb_books',
         'lb_books_authors',
@@ -41,7 +40,6 @@ function library_init()
         'lb_ratings',
         'lb_series',
         'lb_tags',
-         */
     ];
 
     if (!xarMod::apiFunc('modules', 'admin', 'standardinstall', ['module' => $module, 'objects' => $objects])) {
