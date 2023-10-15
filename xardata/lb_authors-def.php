@@ -1,6 +1,6 @@
 <?php
 
-$object = array (
+$object = [
   'objectid' => 0,
   'name' => 'lb_authors',
   'label' => 'Library Authors',
@@ -11,56 +11,56 @@ $object = array (
   'datastore' => 'relational',
   'table' => 'authors',
   'dbConnIndex' => 1,
-  'config' => 
-  array (
+  'config' =>
+  [
     'dbConnIndex' => 1,
     'dbConnArgs' => '["Xaraya\\\\Modules\\\\Library\\\\UserApi","getDbConnArgs"]',
-  ),
+  ],
   'class' => 'Xaraya\\Modules\\Library\\LibraryObject',
   'filepath' => 'modules/library/class/object.php',
-  'sources' => 
-  array (
+  'sources' =>
+  [
     'authors' => 'authors',
-  ),
-);
-$properties = array();
-$properties[] = array (
+  ],
+];
+$properties = [];
+$properties[] = [
   'name' => 'id',
   'label' => 'Id',
   'type' => '21',
   'id' => 1,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'authors.id',
   'status' => 1,
   'seq' => 1,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'name',
   'label' => 'Name',
   'type' => '2',
   'id' => 2,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'authors.name',
   'status' => 1,
   'seq' => 2,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'sort',
   'label' => 'Sort',
   'type' => '4',
   'id' => 3,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'authors.sort',
   'status' => 2,
   'seq' => 3,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'link',
   'label' => 'Link',
   'type' => '4',
@@ -71,8 +71,8 @@ $properties[] = array (
   'seq' => 4,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'books',
   'label' => 'Books',
   'type' => '18283',
@@ -80,6 +80,6 @@ $properties[] = array (
   'defaultvalue' => 'linkobject:lb_books_authors.author.book:lb_books.title',
   'status' => '2',
   'id' => 5,
-);
+];
 $object['propertyargs'] = $properties;
 return $object;

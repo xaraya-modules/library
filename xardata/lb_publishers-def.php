@@ -1,6 +1,6 @@
 <?php
 
-$object = array (
+$object = [
   'objectid' => 0,
   'name' => 'lb_publishers',
   'label' => 'Library Publishers',
@@ -11,56 +11,56 @@ $object = array (
   'datastore' => 'relational',
   'table' => 'publishers',
   'dbConnIndex' => 1,
-  'config' => 
-  array (
+  'config' =>
+  [
     'dbConnIndex' => 1,
     'dbConnArgs' => '["Xaraya\\\\Modules\\\\Library\\\\UserApi","getDbConnArgs"]',
-  ),
+  ],
   'class' => 'Xaraya\\Modules\\Library\\LibraryObject',
   'filepath' => 'modules/library/class/object.php',
-  'sources' => 
-  array (
+  'sources' =>
+  [
     'publishers' => 'publishers',
-  ),
-);
-$properties = array();
-$properties[] = array (
+  ],
+];
+$properties = [];
+$properties[] = [
   'name' => 'id',
   'label' => 'Id',
   'type' => '21',
   'id' => 1,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'publishers.id',
   'status' => 1,
   'seq' => 1,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'name',
   'label' => 'Name',
   'type' => '2',
   'id' => 2,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'publishers.name',
   'status' => 1,
   'seq' => 2,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'sort',
   'label' => 'Sort',
   'type' => '4',
   'id' => 3,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'publishers.sort',
   'status' => 2,
   'seq' => 3,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'books',
   'label' => 'Books',
   'type' => '18283',
@@ -68,6 +68,6 @@ $properties[] = array (
   'defaultvalue' => 'linkobject:lb_books_publishers.publisher.book:lb_books.title',
   'status' => '2',
   'id' => 4,
-);
+];
 $object['propertyargs'] = $properties;
 return $object;

@@ -1,6 +1,6 @@
 <?php
 
-$object = array (
+$object = [
   'objectid' => 0,
   'name' => 'lb_languages',
   'label' => 'Library Languages',
@@ -11,44 +11,44 @@ $object = array (
   'datastore' => 'relational',
   'table' => 'languages',
   'dbConnIndex' => 1,
-  'config' => 
-  array (
+  'config' =>
+  [
     'dbConnIndex' => 1,
     'dbConnArgs' => '["Xaraya\\\\Modules\\\\Library\\\\UserApi","getDbConnArgs"]',
-  ),
+  ],
   'class' => 'Xaraya\\Modules\\Library\\LibraryObject',
   'filepath' => 'modules/library/class/object.php',
-  'sources' => 
-  array (
+  'sources' =>
+  [
     'languages' => 'languages',
-  ),
-);
-$properties = array();
-$properties[] = array (
+  ],
+];
+$properties = [];
+$properties[] = [
   'name' => 'id',
   'label' => 'Id',
   'type' => '21',
   'id' => 1,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'languages.id',
   'status' => 1,
   'seq' => 1,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'lang_code',
   'label' => 'Lang Code',
   'type' => '1',
   'id' => 2,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'languages.lang_code',
   'status' => 1,
   'seq' => 2,
   'validation' => 'TEXT NON',
   'configuration' => 'TEXT NON',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'books',
   'label' => 'Books',
   'type' => '18283',
@@ -56,6 +56,6 @@ $properties[] = array (
   'defaultvalue' => 'linkobject:lb_books_languages.lang_code.book:lb_books.title',
   'status' => '2',
   'id' => 3,
-);
+];
 $object['propertyargs'] = $properties;
 return $object;

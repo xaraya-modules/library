@@ -1,6 +1,6 @@
 <?php
 
-$object = array (
+$object = [
   'objectid' => 0,
   'name' => 'lb_books',
   'label' => 'Library Books',
@@ -11,32 +11,32 @@ $object = array (
   'datastore' => 'relational',
   'table' => 'books',
   'dbConnIndex' => 1,
-  'config' => 
-  array (
+  'config' =>
+  [
     'dbConnIndex' => 1,
     'dbConnArgs' => '["Xaraya\\\\Modules\\\\Library\\\\UserApi","getDbConnArgs"]',
-  ),
+  ],
   'class' => 'Xaraya\\Modules\\Library\\LibraryObject',
   'filepath' => 'modules/library/class/object.php',
-  'sources' => 
-  array (
+  'sources' =>
+  [
     'books' => 'books',
-  ),
-);
-$properties = array();
-$properties[] = array (
+  ],
+];
+$properties = [];
+$properties[] = [
   'name' => 'id',
   'label' => 'Id',
   'type' => '21',
   'id' => 1,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'books.id',
   'status' => 1,
   'seq' => 1,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'title',
   'label' => 'Title',
   'type' => '2',
@@ -47,20 +47,20 @@ $properties[] = array (
   'seq' => 2,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'sort',
   'label' => 'Sort',
   'type' => '4',
   'id' => 3,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'books.sort',
   'status' => 2,
   'seq' => 3,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'timestamp',
   'label' => 'Timestamp',
   'type' => '8',
@@ -71,8 +71,8 @@ $properties[] = array (
   'seq' => 4,
   'validation' => 'TIMESTAMP',
   'configuration' => 'TIMESTAMP',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'pubdate',
   'label' => 'Pubdate',
   'type' => '8',
@@ -83,8 +83,8 @@ $properties[] = array (
   'seq' => 5,
   'validation' => 'TIMESTAMP',
   'configuration' => 'TIMESTAMP',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'series_index',
   'label' => 'Series Index',
   'type' => '17',
@@ -95,20 +95,20 @@ $properties[] = array (
   'seq' => 6,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'author_sort',
   'label' => 'Author Sort',
   'type' => '4',
   'id' => 7,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'books.author_sort',
   'status' => 2,
   'seq' => 7,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'isbn',
   'label' => 'Isbn',
   'type' => '4',
@@ -119,8 +119,8 @@ $properties[] = array (
   'seq' => 8,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'lccn',
   'label' => 'Lccn',
   'type' => '4',
@@ -131,8 +131,8 @@ $properties[] = array (
   'seq' => 9,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'path',
   'label' => 'Path',
   'type' => '4',
@@ -143,8 +143,8 @@ $properties[] = array (
   'seq' => 10,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'flags',
   'label' => 'Flags',
   'type' => '15',
@@ -155,20 +155,20 @@ $properties[] = array (
   'seq' => 11,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'uuid',
   'label' => 'Uuid',
   'type' => '4',
   'id' => 12,
-  'defaultvalue' => NULL,
+  'defaultvalue' => null,
   'source' => 'books.uuid',
   'status' => 2,
   'seq' => 12,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'has_cover',
   'label' => 'Has Cover',
   'type' => '14',
@@ -179,8 +179,8 @@ $properties[] = array (
   'seq' => 13,
   'validation' => '',
   'configuration' => '',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'last_modified',
   'label' => 'Last Modified',
   'type' => '8',
@@ -191,8 +191,8 @@ $properties[] = array (
   'seq' => 14,
   'validation' => 'TIMESTAMP',
   'configuration' => 'TIMESTAMP',
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'authors',
   'label' => 'Authors',
   'type' => '18283',
@@ -200,8 +200,8 @@ $properties[] = array (
   'defaultvalue' => 'linkobject:lb_books_authors.book.author:lb_authors.name',
   'status' => '1',
   'id' => 15,
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'languages',
   'label' => 'Languages',
   'type' => '18283',
@@ -209,8 +209,8 @@ $properties[] = array (
   'defaultvalue' => 'linkobject:lb_books_languages.book.lang_code:lb_languages.missing',
   'status' => '2',
   'id' => 16,
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'publishers',
   'label' => 'Publishers',
   'type' => '18283',
@@ -218,8 +218,8 @@ $properties[] = array (
   'defaultvalue' => 'linkobject:lb_books_publishers.book.publisher:lb_publishers.name',
   'status' => '2',
   'id' => 17,
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'ratings',
   'label' => 'Ratings',
   'type' => '18283',
@@ -227,8 +227,8 @@ $properties[] = array (
   'defaultvalue' => 'linkobject:lb_books_ratings.book.rating:lb_ratings.missing',
   'status' => '2',
   'id' => 18,
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'series',
   'label' => 'Series',
   'type' => '18283',
@@ -236,8 +236,8 @@ $properties[] = array (
   'defaultvalue' => 'linkobject:lb_books_series.book.series:lb_series.name',
   'status' => '2',
   'id' => 19,
-);
-$properties[] = array (
+];
+$properties[] = [
   'name' => 'tags',
   'label' => 'Tags',
   'type' => '18283',
@@ -245,6 +245,6 @@ $properties[] = array (
   'defaultvalue' => 'linkobject:lb_books_tags.book.tag:lb_tags.name',
   'status' => '2',
   'id' => 20,
-);
+];
 $object['propertyargs'] = $properties;
 return $object;
