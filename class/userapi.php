@@ -35,8 +35,9 @@ class UserApi implements DatabaseInterface, UserApiInterface
     use DatabaseTrait;
     use UserApiTrait;
 
-    protected static int $moduleId = 18257;
     protected static string $moduleName = 'library';
+    protected static int $moduleId = 18257;
+    protected static int $itemtype = 0;
     protected static string $prefix = 'lb_';
 
     /**
