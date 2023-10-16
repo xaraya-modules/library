@@ -15,11 +15,73 @@
             <!-- xar:template type="module" file="main_objects"/-->
             <xar:if condition="empty($name)">
                 <h3>Available Databases</h3>
-                <ul>
-                    <xar:foreach in="$databases" value="$database">
-                    <li><a href="#xarController::URL('library', 'user', 'main', ['name' => $database['name']])#">#$database['description']#</a></li>
-                    </xar:foreach>
-                </ul>
+                <xar:if condition="xarSecurity::check('AdminDynamicData', 0)">
+                    <form method="post">
+                    <p>Please specify which databases should be shown to your users here</p>
+                    <ul>
+                        <xar:foreach in="$databases" value="$database">
+                        <li>
+                            <xar:if condition="empty($database['disabled'])">
+                                <input type="checkbox" name="selected[#$database['name']#]" id="selected_#$database['name']#" checked="checked"/>&#160;
+                            <xar:else/>
+                                <input type="checkbox" name="selected[#$database['name']#]" id="selected_#$database['name']#"/>&#160;
+                            </xar:if>
+                            <a href="#xarController::URL('library', 'user', 'main', ['name' => $database['name']])#">#$database['description']#</a>
+                            <xar:if condition="!empty($current) and $current eq $database['name']">
+                                (*)
+                            </xar:if>
+                        </li>
+                        </xar:foreach>
+                    </ul>
+                    <fieldset>
+                        <legend>Add Calibre Database</legend>
+                        <div class="xar-row">
+                            <div class="xar-col">
+                                <label class="xar-form-label" for="new_name" title="" style="">URL Name</label>
+                            </div>
+                            <div class="xar-col">
+                                <input type="text" id="new_name" name="new[name]" value="" size="25" maxlength="254" tabindex="0" style="" class="xar-form-textmedium"/>
+                                (lowercase, no space)
+                            </div>
+                        </div>
+                        <div class="xar-row">
+                            <div class="xar-col">
+                                <label class="xar-form-label" for="new_description" title="" style="">Description</label>
+                            </div>
+                            <div class="xar-col">
+                                <input type="text" id="new_description" name="new[description]" value="" size="25" maxlength="254" tabindex="0" style="" class="xar-form-textxlong"/>
+                                (shown in list above)
+                            </div>
+                        </div>
+                        <div class="xar-row">
+                            <div class="xar-col">
+                                <label class="xar-form-label" for="new_filepath" title="" style="">File Path to metadata.db</label>
+                            </div>
+                            <div class="xar-col">
+                                <input type="text" id="new_filepath" name="new[filepath]" value="" size="25" maxlength="254" tabindex="0" style="" class="xar-form-textxlong"/>
+                                (accessible to Xaraya)
+                            </div>
+                        </div>
+                    </fieldset>
+                    <input type="hidden" name="selected[_none_]" value="no"/>
+                    <input type="hidden" name="authid" value="#xarSec::genAuthKey('library')#"/>
+                    <xar:var name="label">Update List</xar:var>
+                    <xar:button type="submit" label="$label"/>
+                    </form>
+                    <p>(*) current database</p>
+                <xar:else/>
+                    <ul>
+                        <xar:foreach in="$databases" value="$database">
+                        <li>
+                            <a href="#xarController::URL('library', 'user', 'main', ['name' => $database['name']])#">#$database['description']#</a>
+                            <xar:if condition="!empty($current) and $current eq $database['name']">
+                                (*)
+                            </xar:if>
+                        </li>
+                        </xar:foreach>
+                    </ul>
+                    <p>(*) current database</p>
+                </xar:if>
             <xar:else />
                 <h3>#$description#</h3>
                 <ul>

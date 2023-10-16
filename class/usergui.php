@@ -12,6 +12,8 @@
 
 namespace Xaraya\Modules\Library;
 
+use BadParameterException;
+use xarSec;
 use xarVar;
 use sys;
 
@@ -30,12 +32,42 @@ class UserGui
      */
     public static function main(array $args = [])
     {
-        xarVar::fetch('name', 'str:1', $args['name'], null, xarVar::DONT_SET);
+        $databases = UserApi::getDatabases();
+        $selected = null;
+        xarVar::fetch('selected', 'array', $selected, array(), xarVar::DONT_SET);
+        if (!empty($selected) && is_array($selected) && xarSec::confirmAuthKey('library')) {
+            foreach ($databases as $name => $database) {
+                if (array_key_exists($name, $selected)) {
+                    unset($database['disabled']);
+                } else {
+                    $database['disabled'] = true;
+                }
+                $databases[$name] = $database;
+            }
+            $new = null;
+            xarVar::fetch('new', 'array', $new, array(), xarVar::DONT_SET);
+            if (!empty($new) && is_array($new) && !empty($new['name'])) {
+                if (!empty($new['filepath']) && is_file($new['filepath'])) {
+                    $name = strtolower(str_replace(' ', '', $new['name']));
+                    $database = [
+                        'name' => $name,
+                        'description' => $new['description'] ?: $new['name'],
+                        'databaseType' => 'sqlite3',
+                        'databaseName' => $new['filepath'],
+                    ];
+                    $databases[$name] = $database;
+                } else {
+                    throw new BadParameterException($new['filepath'], 'Invalid file path #(1)');
+                }
+            }
+            UserApi::saveDatabases($databases);
+        }
+        $args['databases'] = $databases;
 
-        $args['databases'] = UserApi::getDatabases();
-        if (!empty($args['name']) && !empty($args['databases']) && !empty($args['databases'][$args['name']])) {
+        xarVar::fetch('name', 'str:1', $args['name'], null, xarVar::DONT_SET);
+        if (!empty($args['name']) && !empty($databases) && !empty($databases[$args['name']])) {
             UserApi::setCurrentDatabase($args['name']);
-            $database = $args['databases'][$args['name']];
+            $database = $databases[$args['name']];
             $args = array_merge($args, $database);
             $args['dbConnIndex'] = UserApi::connectDatabase($args['name']);
             //$args['tables'] = UserApi::getDatabaseTables($args['name']);
@@ -47,6 +79,7 @@ class UserGui
             unset($args['name']);
         }
         $args['description'] ??= '';
+        $args['current'] = UserApi::getCurrentDatabase();
         return $args;
     }
 }
