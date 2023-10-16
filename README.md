@@ -8,3 +8,4 @@ That you're able to navigate through books from different databases by author, s
 
 However, if you feel inspired, please don't hesitate to fork this module and submit pull requests, or even create another module with fancy new features :-)
 
+![xaraya_library](https://github.com/xaraya-modules/library/assets/1447115/e534a404-46d7-4fba-bd5b-2720bc33d6ba)
