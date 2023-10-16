@@ -11,7 +11,7 @@
 $modversion = [];
 $modversion['name']           = 'library';
 $modversion['id']             = '18257';
-$modversion['version']        = '2.4.1';
+$modversion['version']        = '2.4.2';
 $modversion['displayname']    = 'Library';
 $modversion['description']    = 'Library of books from Calibre or elsewhere';
 $modversion['credits']        = '';
