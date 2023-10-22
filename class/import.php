@@ -36,7 +36,7 @@ class Import
     protected static array $tables = [];
     /** @var array<string, mixed> */
     protected static array $links = [];
-    protected static ?int $dbConnIndex = 0;
+    protected static int|string|null $dbConnIndex = 0;
 
     /**
      * User import GUI function
