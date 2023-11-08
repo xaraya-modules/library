@@ -17,7 +17,7 @@ use xarSec;
 use xarVar;
 use sys;
 
-sys::import('modules.dynamicdata.class.objects.master');
+sys::import('modules.dynamicdata.class.objects.factory');
 sys::import('modules.library.class.userapi');
 
 /**

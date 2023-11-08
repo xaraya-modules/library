@@ -14,12 +14,12 @@ namespace Xaraya\Modules\Library;
 
 use Xaraya\DataObject\Export\PhpExporter;
 use Xaraya\DataObject\Import\PhpImporter;
-use DataObjectMaster;
+use DataObjectFactory;
 use TableObjectDescriptor;
 use xarModVars;
 use sys;
 
-sys::import('modules.dynamicdata.class.objects.master');
+sys::import('modules.dynamicdata.class.objects.factory');
 sys::import('modules.dynamicdata.class.objects.virtual');
 sys::import('modules.dynamicdata.class.export.generic');
 sys::import('modules.dynamicdata.class.import.generic');
@@ -327,13 +327,13 @@ class Import
      */
     public static function deleteObjects()
     {
-        $objects = DataObjectMaster::getObjects();
+        $objects = DataObjectFactory::getObjects();
         foreach ($objects as $objectid => $objectinfo) {
             if (intval($objectinfo['moduleid']) !== self::$moduleid) {
                 continue;
             }
             $objectname = $objectinfo['name'];
-            $result = DataObjectMaster::deleteObject(['name' => $objectname]);
+            $result = DataObjectFactory::deleteObject(['name' => $objectname]);
             if (empty($result)) {
                 echo 'Error deleting object ' . $objectname;
             }

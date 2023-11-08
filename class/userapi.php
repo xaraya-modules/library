@@ -18,11 +18,11 @@ use Xaraya\DataObject\Traits\UserApiInterface;
 use Xaraya\DataObject\Traits\UserApiTrait;
 use DataObject;
 use DataObjectList;
-use DataObjectMaster;
+use DataObjectFactory;
 use Query;
 use sys;
 
-sys::import('modules.dynamicdata.class.objects.master');
+sys::import('modules.dynamicdata.class.objects.factory');
 sys::import('modules.dynamicdata.class.traits.userapi');
 sys::import('xaraya.traits.databasetrait');
 sys::import('xaraya.structures.query');
@@ -67,7 +67,7 @@ class UserApi implements DatabaseInterface, UserApiInterface
     public static function getBooksObject($name)
     {
         static::setCurrentDatabase($name);
-        $object = DataObjectMaster::getObject(['name' => static::$prefix . 'books']);
+        $object = DataObjectFactory::getObject(['name' => static::$prefix . 'books']);
         return $object;
     }
 
@@ -79,7 +79,7 @@ class UserApi implements DatabaseInterface, UserApiInterface
     public static function getBooksObjectList($name)
     {
         static::setCurrentDatabase($name);
-        $object = DataObjectMaster::getObjectList(['name' => static::$prefix . 'books']);
+        $object = DataObjectFactory::getObjectList(['name' => static::$prefix . 'books']);
         return $object;
     }
 }
