@@ -40,6 +40,9 @@ class LibraryObject extends DataObject
 
 class LibraryObjectList extends DataObjectList
 {
+    /** @var array<string, string>|null */
+    private $action_urls = null;
+
     /**
      * Get List to fill showView template options
      *
@@ -48,26 +51,25 @@ class LibraryObjectList extends DataObjectList
      */
     public function getViewOptions($itemid = null)
     {
-        static $cached_urls = null;
-        if (!isset($cached_urls)) {
-            $cached_urls = [];
-            $cached_urls['display'] = $this->getActionURL('display', '[itemid]');
+        if (!isset($this->action_urls)) {
+            $this->action_urls = [];
+            $this->action_urls['display'] = $this->getActionURL('display', '[itemid]');
             if ($this->name == 'lb_books') {
-                $cached_urls['action'] = $this->getActionURL('action', '[itemid]');
+                $this->action_urls['action'] = $this->getActionURL('action', '[itemid]');
             }
         }
         $options = [];
         $options['display'] = [
             'otitle' => xarML('Display'),
             'oicon'  => 'display.png',
-            'olink'  => str_replace('[itemid]', $itemid, $cached_urls['display']),
+            'olink'  => str_replace('[itemid]', $itemid, $this->action_urls['display']),
             'ojoin'  => ''
         ];
         if ($this->name == 'lb_books') {
             $options['action'] = [
                 'otitle' => xarML('Action'),
                 'oicon'  => 'go-next.png',
-                'olink'  => str_replace('[itemid]', $itemid, $cached_urls['action']),
+                'olink'  => str_replace('[itemid]', $itemid, $this->action_urls['action']),
                 'ojoin'  => ''
             ];
         }
