@@ -1,0 +1,8 @@
+parameters:
+    level: 8
+    paths:
+        - .
+    bootstrapFiles:
+        - ../../autoload.php
+    ignoreErrors:
+        - '#Function xarML not found.#'

@@ -28,7 +28,7 @@ sys::import('xaraya.traits.databasetrait');
 sys::import('xaraya.structures.query');
 
 /**
- * Class to handle the library user API
+ * Class to handle the Library User API (static for now)
  */
 class UserApi implements DatabaseInterface, UserApiInterface
 {
@@ -62,11 +62,12 @@ class UserApi implements DatabaseInterface, UserApiInterface
     /**
      * Summary of getBooksObject
      * @param string $name
+     * @param mixed $context
      * @return DataObject|null
      */
-    public static function getBooksObject($name)
+    public static function getBooksObject($name, $context = null)
     {
-        static::setCurrentDatabase($name);
+        static::setCurrentDatabase($name, $context);
         $object = DataObjectFactory::getObject(['name' => static::$prefix . 'books']);
         return $object;
     }
@@ -74,11 +75,12 @@ class UserApi implements DatabaseInterface, UserApiInterface
     /**
      * Summary of getBooksObjectList
      * @param string $name
+     * @param mixed $context
      * @return DataObjectList|null
      */
-    public static function getBooksObjectList($name)
+    public static function getBooksObjectList($name, $context = null)
     {
-        static::setCurrentDatabase($name);
+        static::setCurrentDatabase($name, $context);
         $object = DataObjectFactory::getObjectList(['name' => static::$prefix . 'books']);
         return $object;
     }

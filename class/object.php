@@ -63,14 +63,14 @@ class LibraryObjectList extends DataObjectList
             'otitle' => xarML('Display'),
             'oicon'  => 'display.png',
             'olink'  => str_replace('[itemid]', $itemid, $this->action_urls['display']),
-            'ojoin'  => ''
+            'ojoin'  => '',
         ];
         if ($this->name == 'lb_books') {
             $options['action'] = [
                 'otitle' => xarML('Action'),
                 'oicon'  => 'go-next.png',
                 'olink'  => str_replace('[itemid]', $itemid, $this->action_urls['action']),
-                'ojoin'  => ''
+                'ojoin'  => '',
             ];
         }
         return $options;

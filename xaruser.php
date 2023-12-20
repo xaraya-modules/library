@@ -17,11 +17,14 @@ use Xaraya\Modules\Library\Import;
  *
  * @uses Xaraya\Modules\Library\UserGui::main()
  * @param array<string, mixed> $args
+ * @param mixed $context
  * @return mixed template output in HTML
  */
-function library_user_main(array $args = [])
+function library_user_main(array $args = [], $context = null)
 {
-    return UserGui::main($args);
+    $usergui = new UserGui();
+    $usergui->setContext($context);
+    return $usergui->main($args);
 }
 
 /**
@@ -29,9 +32,10 @@ function library_user_main(array $args = [])
  *
  * @uses Xaraya\Modules\Library\Import::main()
  * @param array<string, mixed> $args
+ * @param mixed $context
  * @return mixed template output in HTML
  */
-function library_user_import(array $args = [])
+function library_user_import(array $args = [], $context = null)
 {
     return Import::main($args);
 }
