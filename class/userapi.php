@@ -68,7 +68,7 @@ class UserApi implements DatabaseInterface, UserApiInterface
     public static function getBooksObject($name, $context = null)
     {
         static::setCurrentDatabase($name, $context);
-        $object = DataObjectFactory::getObject(['name' => static::$prefix . 'books']);
+        $object = DataObjectFactory::getObject(['name' => static::$prefix . 'books'], $context);
         return $object;
     }
 
@@ -81,7 +81,7 @@ class UserApi implements DatabaseInterface, UserApiInterface
     public static function getBooksObjectList($name, $context = null)
     {
         static::setCurrentDatabase($name, $context);
-        $object = DataObjectFactory::getObjectList(['name' => static::$prefix . 'books']);
+        $object = DataObjectFactory::getObjectList(['name' => static::$prefix . 'books'], $context);
         return $object;
     }
 }

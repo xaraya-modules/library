@@ -77,8 +77,16 @@ class UserGui implements UserGuiInterface
             $args['dbConnIndex'] = UserApi::connectDatabase($args['name']);
             //$args['tables'] = UserApi::getDatabaseTables($args['name']);
             //$args['books'] = UserApi::getBooksQuery($args['name']);
-            $args['objectlist'] = UserApi::getBooksObjectList($args['name']);
-            $args['objectlist']?->getItems(['fieldlist' => ['title', 'timestamp', 'pubdate', 'authors']]);
+            $args['objectlist'] = UserApi::getBooksObjectList($args['name'], $this->getContext());
+            $params = [
+                'fieldlist' => ['title', 'timestamp', 'pubdate', 'authors'],
+                'numitems' => 100,
+            ];
+            xarVar::fetch('startnum', 'int', $args['startnum'], null, xarVar::DONT_SET);
+            if (!empty($args['startnum'])) {
+                $params['startnum'] = $args['startnum'];
+            }
+            $args['objectlist']?->getItems($params);
             $args['objects'] = UserApi::getModuleObjects();
         } else {
             unset($args['name']);
