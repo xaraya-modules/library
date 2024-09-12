@@ -8,12 +8,13 @@
         "optimize-autoloader": true,
         "sort-packages": true
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "conflict": {
         "xaraya/core": "<2.4.1"
     },
     "require-dev": {
-        "mikespub/php-epub-meta": "dev-main"
+        "mikespub/php-epub-meta": "^3.0"
     },
     "autoload": {
         "classmap": ["./"]
