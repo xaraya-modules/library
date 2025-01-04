@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package modules\library
  * @category Xaraya Web Applications Framework
@@ -28,16 +29,13 @@ sys::import('xaraya.traits.databasetrait');
 sys::import('xaraya.structures.query');
 
 /**
- * Class to handle the Library User API (static for now)
+ * Class to handle the Library User API (static for now) - @todo replace with instance methods
  */
 class UserApi implements DatabaseInterface, UserApiInterface
 {
     use DatabaseTrait;
     use UserApiTrait;
 
-    protected static string $moduleName = 'library';
-    protected static int $moduleId = 18257;
-    protected static int $itemtype = 0;
     protected static string $prefix = 'lb_';
 
     /**
@@ -45,10 +43,10 @@ class UserApi implements DatabaseInterface, UserApiInterface
      * @param string $name
      * @return array|mixed|null
      */
-    public static function getBooksQuery($name)
+    public function getBooksQuery($name)
     {
         $result = [];
-        $dbConnIndex = static::connectDatabase($name);
+        $dbConnIndex = $this->connectDatabase($name);
         if (empty($dbConnIndex)) {
             return $result;
         }
@@ -65,9 +63,9 @@ class UserApi implements DatabaseInterface, UserApiInterface
      * @param mixed $context
      * @return DataObject|null
      */
-    public static function getBooksObject($name, $context = null)
+    public function getBooksObject($name, $context = null)
     {
-        static::setCurrentDatabase($name, $context);
+        $this->setCurrentDatabase($name, $context);
         $object = DataObjectFactory::getObject(['name' => static::$prefix . 'books'], $context);
         return $object;
     }
@@ -78,9 +76,9 @@ class UserApi implements DatabaseInterface, UserApiInterface
      * @param mixed $context
      * @return DataObjectList|null
      */
-    public static function getBooksObjectList($name, $context = null)
+    public function getBooksObjectList($name, $context = null)
     {
-        static::setCurrentDatabase($name, $context);
+        $this->setCurrentDatabase($name, $context);
         $object = DataObjectFactory::getObjectList(['name' => static::$prefix . 'books'], $context);
         return $object;
     }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package modules\library
  * @category Xaraya Web Applications Framework
@@ -37,7 +38,10 @@ class UserGui implements UserGuiInterface
      */
     public function main(array $args = [])
     {
-        $databases = UserApi::getDatabases();
+        /** @var UserApi $userapi */
+        $userapi = $this->getAPI();
+        // @todo replace with instance method calls
+        $databases = $userapi->getDatabases();
         $selected = null;
         xarVar::fetch('selected', 'array', $selected, [], xarVar::DONT_SET);
         if (!empty($selected) && is_array($selected) && xarSec::confirmAuthKey('library')) {
@@ -65,19 +69,19 @@ class UserGui implements UserGuiInterface
                     throw new BadParameterException($new['filepath'], 'Invalid file path #(1)');
                 }
             }
-            UserApi::saveDatabases($databases);
+            $userapi->saveDatabases($databases);
         }
         $args['databases'] = $databases;
 
         xarVar::fetch('name', 'str:1', $args['name'], null, xarVar::DONT_SET);
         if (!empty($args['name']) && !empty($databases) && !empty($databases[$args['name']])) {
-            UserApi::setCurrentDatabase($args['name'], $this->getContext());
+            $userapi->setCurrentDatabase($args['name'], $this->getContext());
             $database = $databases[$args['name']];
             $args = array_merge($args, $database);
-            $args['dbConnIndex'] = UserApi::connectDatabase($args['name']);
-            //$args['tables'] = UserApi::getDatabaseTables($args['name']);
-            //$args['books'] = UserApi::getBooksQuery($args['name']);
-            $args['objectlist'] = UserApi::getBooksObjectList($args['name'], $this->getContext());
+            $args['dbConnIndex'] = $userapi->connectDatabase($args['name']);
+            //$args['tables'] = $userapi::getDatabaseTables($args['name']);
+            //$args['books'] = $userapi->getBooksQuery($args['name']);
+            $args['objectlist'] = $userapi->getBooksObjectList($args['name'], $this->getContext());
             $params = [
                 'fieldlist' => ['title', 'timestamp', 'pubdate', 'authors'],
                 'numitems' => 100,
@@ -87,12 +91,12 @@ class UserGui implements UserGuiInterface
                 $params['startnum'] = $args['startnum'];
             }
             $args['objectlist']?->getItems($params);
-            $args['objects'] = UserApi::getModuleObjects();
+            $args['objects'] = $userapi->getModuleObjects();
         } else {
             unset($args['name']);
         }
         $args['description'] ??= '';
-        $args['current'] = UserApi::getCurrentDatabase($this->getContext());
+        $args['current'] = $userapi->getCurrentDatabase($this->getContext());
         return $args;
     }
 }

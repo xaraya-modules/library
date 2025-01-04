@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Ensure proper initialisation even when autoload is disabled
  *

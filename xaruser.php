@@ -7,9 +7,7 @@
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link http://xaraya.info/index.php/release/18257.html
  */
-sys::import('modules.library.class.usergui');
 sys::import('modules.library.class.import');
-use Xaraya\Modules\Library\UserGui;
 use Xaraya\Modules\Library\Import;
 
 /**
@@ -22,7 +20,7 @@ use Xaraya\Modules\Library\Import;
  */
 function library_user_main(array $args = [], $context = null)
 {
-    $usergui = new UserGui();
+    $usergui = xarMod::getGUI('library');
     $usergui->setContext($context);
     return $usergui->main($args);
 }

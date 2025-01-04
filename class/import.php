@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package modules\library
  * @category Xaraya Web Applications Framework
@@ -16,6 +17,7 @@ use Xaraya\DataObject\Export\PhpExporter;
 use Xaraya\DataObject\Import\PhpImporter;
 use DataObjectFactory;
 use TableObjectDescriptor;
+use xarMod;
 use xarModVars;
 use sys;
 
@@ -62,9 +64,11 @@ class Import
         // use 'test' database to import
         $name = $args['name'] ?? 'test';
 
-        $databases = UserApi::getDatabases();
-        $tables = UserApi::getDatabaseTables($name);
-        static::$dbConnIndex = UserApi::connectDatabase($name);
+        /** @var UserApi $userapi */
+        $userapi = xarMod::getAPI('library');
+        $databases = $userapi->getDatabases();
+        $tables = $userapi->getDatabaseTables($name);
+        static::$dbConnIndex = $userapi->connectDatabase($name);
 
         $primary = ['authors', 'books', 'data', 'identifiers', 'languages', 'publishers', 'ratings', 'series', 'tags'];
         $status = [];
