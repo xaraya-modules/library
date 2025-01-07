@@ -3,7 +3,7 @@
 /**
  * @package modules\library
  * @category Xaraya Web Applications Framework
- * @version 2.4.1
+ * @version 2.5.6
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -16,6 +16,8 @@ namespace Xaraya\Modules\Library;
 use Xaraya\DataObject\Traits\UserGuiInterface;
 use Xaraya\DataObject\Traits\UserGuiTrait;
 use BadParameterException;
+use xarController;
+use xarMod;
 use xarSec;
 use xarVar;
 use sys;
@@ -86,6 +88,10 @@ class UserGui implements UserGuiInterface
                 'fieldlist' => ['title', 'timestamp', 'pubdate', 'authors'],
                 'numitems' => 100,
             ];
+            xarVar::fetch('sort', 'isset', $args['sort'], null, xarVar::DONT_SET);
+            if (!empty($args['sort'])) {
+                $params['sort'] = $args['sort'];
+            }
             xarVar::fetch('startnum', 'int', $args['startnum'], null, xarVar::DONT_SET);
             if (!empty($args['startnum'])) {
                 $params['startnum'] = $args['startnum'];
@@ -98,5 +104,20 @@ class UserGui implements UserGuiInterface
         $args['description'] ??= '';
         $args['current'] = $userapi->getCurrentDatabase($this->getContext());
         return $args;
+    }
+
+    /**
+     * User import GUI function
+     * @param array<string, mixed> $args
+     * @return array<mixed>|void
+     */
+    public function import(array $args = [])
+    {
+        //$module = xarMod::getModule('library');
+        ///** @var Import $import */
+        //$import = $module->getComponent('Import');
+        //$import->setContext($this->getContext());
+        //return $import->main($args);
+        xarController::redirect(xarController::URL('library', 'import', 'main'), null, $this->getContext());
     }
 }

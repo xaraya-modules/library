@@ -3,7 +3,7 @@
 /**
  * @package modules\library
  * @category Xaraya Web Applications Framework
- * @version 2.4.1
+ * @version 2.5.6
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -29,14 +29,14 @@ sys::import('xaraya.database.databasetrait');
 sys::import('xaraya.structures.query');
 
 /**
- * Class to handle the Library User API (static for now) - @todo replace with instance methods
+ * Class to handle the Library User API
  */
 class UserApi implements DatabaseInterface, UserApiInterface
 {
     use DatabaseTrait;
     use UserApiTrait;
 
-    protected static string $prefix = 'lb_';
+    public static string $prefix = 'lb_';
 
     /**
      * Summary of getBooksQuery

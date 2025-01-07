@@ -3,7 +3,7 @@
 /**
  * @package modules\library
  * @category Xaraya Web Applications Framework
- * @version 2.5.3
+ * @version 2.5.6
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -13,13 +13,18 @@
 
 namespace Xaraya\Modules\Library;
 
-use Xaraya\Modules\ModuleInterface;
-use Xaraya\Modules\ModuleTrait;
+use Xaraya\Modules\ModuleClass;
 
 /**
  * Get library module classes via xarMod::getModule()
  */
-class Module implements ModuleInterface
+class Module extends ModuleClass
 {
-    use ModuleTrait;
+    public function setClassTypes(): void
+    {
+        parent::setClassTypes();
+        // add import class types for library
+        $this->classtypes['import'] = 'Import';
+        $this->classtypes['importapi'] = 'ImportApi';
+    }
 }
