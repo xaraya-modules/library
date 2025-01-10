@@ -31,6 +31,7 @@ sys::import('modules.library.class.userapi');
  */
 class UserGui implements UserGuiInterface
 {
+    /** @use UserGuiTrait<Module> */
     use UserGuiTrait;
 
     /**

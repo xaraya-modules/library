@@ -34,6 +34,7 @@ sys::import('xaraya.structures.query');
 class UserApi implements DatabaseInterface, UserApiInterface
 {
     use DatabaseTrait;
+    /** @use UserApiTrait<Module> */
     use UserApiTrait;
 
     public static string $prefix = 'lb_';
