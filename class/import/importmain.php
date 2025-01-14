@@ -52,7 +52,8 @@ class ImportmainMethod extends MethodClass
         $name = $args['name'] ?? 'test';
 
         /** @var UserApi $userapi */
-        $userapi = xarMod::getAPI('library');
+        $userapi = $this->getAPI();
+
         $databases = $userapi->getDatabases();
         $tables = $userapi->getDatabaseTables($name);
         $this->dbConnIndex = $userapi->connectDatabase($name);
@@ -291,7 +292,7 @@ class ImportmainMethod extends MethodClass
             $dd_objects[$descriptor->get('name')] = $objectid;
         }
         // see modules standardinstall - used by standarddeinstall later
-        xarModVars::set('library', 'dd_objects', serialize($dd_objects));
+        $this->setModVar('dd_objects', serialize($dd_objects));
     }
 
     /**

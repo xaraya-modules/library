@@ -36,6 +36,11 @@ class UserApi implements DatabaseInterface, UserApiInterface
     use DatabaseTrait;
     /** @use UserApiTrait<Module> */
     use UserApiTrait;
+    // @see https://www.php.net/manual/en/language.oop5.traits.php Example #5 Conflict Resolution
+    //use DatabaseTrait, UserApiTrait {
+    //    UserApiTrait::getModName insteadof DatabaseTrait;
+    //    UserApiTrait::setModName insteadof DatabaseTrait;
+    //}
 
     public static string $prefix = 'lb_';
 
