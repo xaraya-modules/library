@@ -41,8 +41,10 @@ class UserGui implements UserGuiInterface
      */
     public function main(array $args = [])
     {
+        $usergui = $this->getParent();
+
         /** @var UserApi $userapi */
-        $userapi = $this->getAPI();
+        $userapi = $usergui->getAPI();
 
         // @todo replace with instance method calls
         $databases = $userapi->getDatabases();

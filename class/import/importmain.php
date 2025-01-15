@@ -51,8 +51,10 @@ class ImportmainMethod extends MethodClass
         // use 'test' database to import
         $name = $args['name'] ?? 'test';
 
+        $import = $this->getParent();
+
         /** @var UserApi $userapi */
-        $userapi = $this->getAPI();
+        $userapi = $import->getAPI();
 
         $databases = $userapi->getDatabases();
         $tables = $userapi->getDatabaseTables($name);
