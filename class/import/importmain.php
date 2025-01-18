@@ -294,7 +294,7 @@ class ImportmainMethod extends MethodClass
             $dd_objects[$descriptor->get('name')] = $objectid;
         }
         // see modules standardinstall - used by standarddeinstall later
-        $this->setModVar('dd_objects', serialize($dd_objects));
+        $this->mod()->setVar('dd_objects', serialize($dd_objects));
     }
 
     /**

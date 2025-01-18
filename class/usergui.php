@@ -50,8 +50,8 @@ class UserGui implements UserGuiInterface
         // @todo replace with instance method calls
         $databases = $userapi->getDatabases();
         $selected = null;
-        $this->fetch('selected', 'array', $selected, [], xarVar::DONT_SET);
-        if (!empty($selected) && is_array($selected) && $this->confirmAuthKey()) {
+        $this->var()->check('selected', $selected, 'array', []);
+        if (!empty($selected) && is_array($selected) && $this->sec()->confirmAuthKey()) {
             foreach ($databases as $name => $database) {
                 if (array_key_exists($name, $selected)) {
                     unset($database['disabled']);
@@ -61,7 +61,7 @@ class UserGui implements UserGuiInterface
                 $databases[$name] = $database;
             }
             $new = null;
-            $this->fetch('new', 'array', $new, [], xarVar::DONT_SET);
+            $this->var()->check('new', $new, 'array', []);
             if (!empty($new) && is_array($new) && !empty($new['name'])) {
                 if (!empty($new['filepath']) && is_file($new['filepath'])) {
                     $name = strtolower(str_replace(' ', '', $new['name']));
@@ -80,7 +80,7 @@ class UserGui implements UserGuiInterface
         }
         $args['databases'] = $databases;
 
-        $this->fetch('name', 'str:1', $args['name'], null, xarVar::DONT_SET);
+        $this->var()->check('name', $args['name'], 'str:1');
         if (!empty($args['name']) && !empty($databases) && !empty($databases[$args['name']])) {
             $userapi->setCurrentDatabase($args['name'], $this->getContext());
             $database = $databases[$args['name']];
@@ -93,11 +93,11 @@ class UserGui implements UserGuiInterface
                 'fieldlist' => ['title', 'timestamp', 'pubdate', 'authors'],
                 'numitems' => 100,
             ];
-            $this->fetch('sort', 'isset', $args['sort'], null, xarVar::DONT_SET);
+            $this->var()->check('sort', $args['sort']);
             if (!empty($args['sort'])) {
                 $params['sort'] = $args['sort'];
             }
-            $this->fetch('startnum', 'int', $args['startnum'], null, xarVar::DONT_SET);
+            $this->var()->check('startnum', $args['startnum'], 'int');
             if (!empty($args['startnum'])) {
                 $params['startnum'] = $args['startnum'];
             }
@@ -123,6 +123,6 @@ class UserGui implements UserGuiInterface
         //$import = $module->getComponent('Import');
         //$import->setContext($this->getContext());
         //return $import->main($args);
-        $this->redirect($this->getUrl('import', 'main'));
+        $this->ctl()->redirect($this->mod()->getURL('import', 'main'));
     }
 }

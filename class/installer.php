@@ -91,8 +91,8 @@ class Installer extends InstallerClass
             'databaseName' => 'code/modules/library/xardata/metadata.db',
             //... other DSN parameters for mysql/mariadb
         ];
-        xarModVars::set($module, 'databases', serialize($databases));
-        xarModVars::set($module, 'dbName', 'test');
+        $this->mod()->setVar('databases', serialize($databases));
+        $this->mod()->setVar('dbName', 'test');
 
         // Installation complete; check for upgrades
         return $this->upgrade('2.4.0');
