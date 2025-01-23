@@ -12,7 +12,7 @@
         </div>
         <!-- show the list of main objects -->
         <div class="xar-mod-object-body">
-            <!-- xar:template type="module" file="main_objects"/-->
+            <xar:comment><!-- xar:template type="module" file="main_objects"/--></xar:comment>
             <xar:if condition="empty($name)">
                 <h3>Available Databases</h3>
                 <xar:if condition="xarSecurity::check('AdminDynamicData', 0)">
