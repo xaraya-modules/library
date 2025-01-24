@@ -319,7 +319,7 @@ class ImportmainMethod extends MethodClass
      */
     public function deleteObjects()
     {
-        $objects = DataObjectFactory::getObjects();
+        $objects = $this->data()->getObjects();
         foreach ($objects as $objectid => $objectinfo) {
             if (intval($objectinfo['moduleid']) !== $this->moduleId) {
                 continue;
