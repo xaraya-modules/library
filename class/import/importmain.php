@@ -45,6 +45,12 @@ class ImportmainMethod extends MethodClass
     protected int|string|null $dbConnIndex = 0;
     protected string $basedir;
 
+    /**
+     * Summary of __invoke
+     * @param array<string, mixed> $args
+     * @return array<mixed>
+     * @see Import::importmain()
+     */
     public function __invoke(array $args = [])
     {
         $this->basedir = dirname(__DIR__, 2);
