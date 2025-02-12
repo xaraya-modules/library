@@ -13,8 +13,8 @@
 
 namespace Xaraya\Modules\Library;
 
-use Xaraya\DataObject\Traits\UserGuiInterface;
-use Xaraya\DataObject\Traits\UserGuiTrait;
+use Xaraya\Modules\DynamicData\Traits\UserGuiInterface;
+use Xaraya\Modules\DynamicData\Traits\UserGuiTrait;
 use BadParameterException;
 use xarController;
 use xarMod;
@@ -23,7 +23,7 @@ use xarVar;
 use sys;
 
 sys::import('modules.dynamicdata.class.objects.factory');
-sys::import('modules.dynamicdata.class.traits.usergui');
+sys::import('modules.dynamicdata.traits.usergui');
 sys::import('modules.library.class.userapi');
 
 /**

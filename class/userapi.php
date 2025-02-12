@@ -15,8 +15,8 @@ namespace Xaraya\Modules\Library;
 
 use Xaraya\Database\DatabaseInterface;
 use Xaraya\Database\DatabaseTrait;
-use Xaraya\DataObject\Traits\UserApiInterface;
-use Xaraya\DataObject\Traits\UserApiTrait;
+use Xaraya\Modules\DynamicData\Traits\UserApiInterface;
+use Xaraya\Modules\DynamicData\Traits\UserApiTrait;
 use DataObject;
 use DataObjectList;
 use DataObjectFactory;
@@ -24,7 +24,7 @@ use Query;
 use sys;
 
 sys::import('modules.dynamicdata.class.objects.factory');
-sys::import('modules.dynamicdata.class.traits.userapi');
+sys::import('modules.dynamicdata.traits.userapi');
 sys::import('xaraya.database.databasetrait');
 sys::import('xaraya.structures.query');
 
