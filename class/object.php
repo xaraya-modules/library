@@ -20,7 +20,7 @@ use DataObjectList;
 use sys;
 
 sys::import('modules.dynamicdata.class.objects');
-sys::import('modules.library.class.userapi');
+sys::import('modules.library.userapi');
 
 class LibraryObject extends DataObject
 {

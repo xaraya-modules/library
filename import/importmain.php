@@ -27,8 +27,8 @@ sys::import('modules.dynamicdata.class.objects.factory');
 sys::import('modules.dynamicdata.class.objects.virtual');
 sys::import('modules.dynamicdata.class.export.generic');
 sys::import('modules.dynamicdata.class.import.generic');
-sys::import('modules.library.class.userapi');
-sys::import('modules.library.class.usergui');
+sys::import('modules.library.userapi');
+sys::import('modules.library.usergui');
 sys::import('xaraya.modules.method');
 
 /**

@@ -24,7 +24,7 @@ use sys;
 
 sys::import('modules.dynamicdata.class.objects.factory');
 sys::import('modules.dynamicdata.traits.usergui');
-sys::import('modules.library.class.userapi');
+sys::import('modules.library.userapi');
 
 /**
  * Class instance to handle the Library User GUI

@@ -25,6 +25,6 @@ class Module extends ModuleClass
         parent::setClassTypes();
         // add import class types for library
         $this->classtypes['import'] = 'Import';
-        $this->classtypes['importapi'] = 'ImportApi';
+        //$this->classtypes['importapi'] = 'ImportApi';
     }
 }
