@@ -45,20 +45,20 @@ $properties[] = [
   'source' => 'data.book',
   'status' => 1,
   'seq' => 2,
-  'validation' => 'INTEGER NON',
-  'configuration' => 'INTEGER NON',
+  'validation' => '',
+  'configuration' => '',
 ];
 $properties[] = [
   'name' => 'format',
   'label' => 'Format',
-  'type' => '1',
+  'type' => '2',
   'id' => 3,
   'defaultvalue' => null,
   'source' => 'data.format',
   'status' => 1,
   'seq' => 3,
-  'validation' => 'TEXT NON',
-  'configuration' => 'TEXT NON',
+  'validation' => '',
+  'configuration' => '',
 ];
 $properties[] = [
   'name' => 'uncompressed_size',
@@ -69,8 +69,8 @@ $properties[] = [
   'source' => 'data.uncompressed_size',
   'status' => 1,
   'seq' => 4,
-  'validation' => 'INTEGER NON',
-  'configuration' => 'INTEGER NON',
+  'validation' => '',
+  'configuration' => '',
 ];
 $properties[] = [
   'name' => 'name',
@@ -81,8 +81,8 @@ $properties[] = [
   'source' => 'data.name',
   'status' => 1,
   'seq' => 5,
-  'validation' => 'TEXT NON',
-  'configuration' => 'TEXT NON',
+  'validation' => '',
+  'configuration' => '',
 ];
 $object['propertyargs'] = $properties;
 return $object;

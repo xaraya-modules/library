@@ -39,14 +39,14 @@ $properties[] = [
 $properties[] = [
   'name' => 'lang_code',
   'label' => 'Lang Code',
-  'type' => '1',
+  'type' => '2',
   'id' => 2,
   'defaultvalue' => null,
   'source' => 'languages.lang_code',
   'status' => 1,
   'seq' => 2,
-  'validation' => 'TEXT NON',
-  'configuration' => 'TEXT NON',
+  'validation' => '',
+  'configuration' => '',
 ];
 $properties[] = [
   'name' => 'books',

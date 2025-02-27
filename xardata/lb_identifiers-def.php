@@ -45,20 +45,20 @@ $properties[] = [
   'source' => 'identifiers.book',
   'status' => 1,
   'seq' => 2,
-  'validation' => 'INTEGER NON',
-  'configuration' => 'INTEGER NON',
+  'validation' => '',
+  'configuration' => '',
 ];
 $properties[] = [
   'name' => 'type',
   'label' => 'Type',
-  'type' => '1',
+  'type' => '2',
   'id' => 3,
   'defaultvalue' => '"isbn"',
   'source' => 'identifiers.type',
   'status' => 1,
   'seq' => 3,
-  'validation' => 'TEXT NON',
-  'configuration' => 'TEXT NON',
+  'validation' => '',
+  'configuration' => '',
 ];
 $properties[] = [
   'name' => 'val',
@@ -69,8 +69,8 @@ $properties[] = [
   'source' => 'identifiers.val',
   'status' => 1,
   'seq' => 4,
-  'validation' => 'TEXT NON',
-  'configuration' => 'TEXT NON',
+  'validation' => '',
+  'configuration' => '',
 ];
 $object['propertyargs'] = $properties;
 return $object;

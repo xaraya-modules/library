@@ -16,8 +16,8 @@ $object = [
     'dbConnIndex' => 1,
     'dbConnArgs' => '["Xaraya\\\\Modules\\\\Library\\\\UserApi","getDbConnArgs"]',
   ],
-  'class' => 'Xaraya\\Modules\\Library\\LibraryObject',
-  'filepath' => 'modules/library/class/object.php',
+  'class' => 'Xaraya\\Modules\\Library\\LibraryLinkObject',
+  'filepath' => 'modules/library/class/link.php',
   'sources' =>
   [
     'books_ratings_link' => 'books_ratings_link',
@@ -53,7 +53,7 @@ $properties[] = [
   'label' => 'Rating',
   'type' => '18281',
   'id' => 3,
-  'defaultvalue' => 'dataobject:lb_ratings.missing',
+  'defaultvalue' => 'dataobject:lb_ratings.rating',
   'source' => 'books_ratings_link.rating',
   'status' => 1,
   'seq' => 3,

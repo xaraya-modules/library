@@ -172,8 +172,8 @@ class ImportmainMethod extends MethodClass
             'dbConnIndex' => $this->dbConnIndex,
             'config' => serialize($config),
             // ensure proper initialisation even when autoload is disabled
-            'class' => 'Xaraya\Modules\Library\LibraryObject',
-            'filepath' => 'modules/library/class/object.php',
+            'class' => 'Xaraya\Modules\Library\LibraryLinkObject',
+            'filepath' => 'modules/library/class/link.php',
         ]);
         $this->links[$link] = $descriptor;
         $filepath = $this->basedir . '/xardata/' . UserApi::$prefix . $link . '-def.php';
