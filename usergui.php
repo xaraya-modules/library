@@ -17,6 +17,7 @@ use Xaraya\Modules\DynamicData\Traits\UserGuiInterface;
 use Xaraya\Modules\DynamicData\Traits\UserGuiTrait;
 use BadParameterException;
 use xarController;
+use xarDDObject;
 use xarMod;
 use xarSec;
 use xarVar;
@@ -34,17 +35,22 @@ class UserGui implements UserGuiInterface
     /** @use UserGuiTrait<Module> */
     use UserGuiTrait;
 
+    public static string $prefix = 'lb_';
+
     /**
      * User main GUI function
      * @param array<string, mixed> $args
-     * @return array<mixed>
+     * @return array<mixed>|string
      */
     public function main(array $args = [])
     {
+        // use entity and action to avoid conflict with module & func or object & method
+        if (!empty($args['entity'])) {
+            return $this->view($args);
+        }
         /** @var UserApi $userapi */
         $userapi = $this->userapi();
 
-        // @todo replace with instance method calls
         $databases = $userapi->getDatabases();
         $selected = null;
         $this->var()->check('selected', $selected, 'array', []);
@@ -72,6 +78,11 @@ class UserGui implements UserGuiInterface
                 } else {
                     throw new BadParameterException($new['filepath'], 'Invalid file path #(1)');
                 }
+            }
+            // don't disable the only database here
+            if (count($databases) < 2) {
+                $first = array_key_first($databases);
+                unset($databases[$first]['disabled']);
             }
             $userapi->saveDatabases($databases);
         }
@@ -105,7 +116,35 @@ class UserGui implements UserGuiInterface
         }
         $args['description'] ??= '';
         $args['current'] = $userapi->getCurrentDatabase($this->getContext());
+        // use the 'default' template instead of the module 'user' template here
+        \xarTpl::setPageTemplateName('default');
         return $args;
+    }
+
+    /**
+     * User view GUI function
+     * @param array<string, mixed> $args
+     * @return string
+     */
+    public function view(array $args = [])
+    {
+        // use entity and action to avoid conflict with module & func or object & method
+        $this->var()->check('entity', $args['entity'], 'str:1');
+        if (!empty($args['entity'])) {
+            $args['object'] ??= self::$prefix . $args['entity'];
+            unset($args['entity']);
+        }
+        $this->var()->check('action', $args['action'], 'str:1');
+        if (!empty($args['action'])) {
+            $args['method'] ??= $args['action'];
+            unset($args['action']);
+        }
+        // use the 'default' template instead of the module 'user' template here
+        \xarTpl::setPageTemplateName('default');
+        sys::import('modules.dynamicdata.class.userinterface');
+
+        $interface = new \DataObjectUserInterface($args);
+        return $interface->handle($args, $this->getContext());
     }
 
     /**

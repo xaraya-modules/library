@@ -86,7 +86,8 @@
                 <h3>#$description#</h3>
                 <ul>
                     <xar:foreach in="$objects" key="$objectname" value="$objectinfo">
-                        <xar:set name="link">xarServer::getObjectURL($objectname, 'view')</xar:set>
+                        <xar:set name="entity">substr($objectname, 3)</xar:set>
+                        <xar:set name="link">xarServer::getModuleURL('library', 'user', 'view', ['entity' => $entity])</xar:set>
                         <li><a href="#$link#">#$objectinfo['label']#</a></li>
                     </xar:foreach>
                 </ul>

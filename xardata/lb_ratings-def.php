@@ -13,6 +13,7 @@ $object = [
   'dbConnIndex' => 1,
   'config' =>
   [
+    'titlefield' => 'rating',
     'dbConnIndex' => 1,
     'dbConnArgs' => '["Xaraya\\\\Modules\\\\Library\\\\UserApi","getDbConnArgs"]',
   ],
