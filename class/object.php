@@ -34,10 +34,11 @@ class LibraryObject extends DataObject
      */
     public function action(array $args = [])
     {
+        $itemid = $this->getItem($args);
         if ($this->name == 'lb_books') {
-            return "Action!";
+            return "Action for book $itemid!";
         } else {
-            return "Action?";
+            return "Action for item $itemid?";
         }
     }
 
@@ -62,6 +63,19 @@ class LibraryObjectList extends DataObjectList
     public $titlefield = '';
 
     /**
+     * Get text slug from title field
+     * @param string $text
+     * @return string
+     */
+    public function getSlug($text)
+    {
+        if (strlen($text) > 100) {
+            $text = substr($text, 0, 100);
+        }
+        return $this->mls()->getSlug($text);
+    }
+
+    /**
      * Get List to fill showView template options
      *
      * @param mixed $itemid
@@ -69,19 +83,18 @@ class LibraryObjectList extends DataObjectList
      */
     public function getViewOptions($itemid = null, $item = null)
     {
-        sys::import('modules.library.controllers.short');
         if (!isset($this->action_urls)) {
             $this->action_urls = [];
-            $this->action_urls['display'] = $this->getDisplayLink('[itemid]', [$this->titlefield => 'replace_title']);
+            $this->action_urls['display'] = $this->getDisplayLink('1234567890', [$this->titlefield => 'replace_title']);
             if ($this->name == 'lb_books') {
-                $this->action_urls['action'] = $this->getActionURL('action', '[itemid]');
+                $this->action_urls['action'] = $this->getActionURL('action', '1234567890');
             }
         }
         $item ??= [];
         $title = (string) ($item[$this->titlefield] ?? '');
         $replace = [
-            '[itemid]' => $itemid,
-            'replace_title' => LibraryShortController::getSlug($title),
+            '1234567890' => $itemid,
+            'replace_title' => $this->getSlug($title),
         ];
         $options = [];
         $options['display'] = [
@@ -94,7 +107,7 @@ class LibraryObjectList extends DataObjectList
             $options['action'] = [
                 'otitle' => xarML('Action'),
                 'oicon'  => 'go-next.png',
-                'olink'  => str_replace('[itemid]', $itemid, $this->action_urls['action']),
+                'olink'  => str_replace('1234567890', $itemid, $this->action_urls['action']),
                 'ojoin'  => '',
             ];
         }
@@ -104,7 +117,7 @@ class LibraryObjectList extends DataObjectList
     public function getDisplayLink($itemid = null, $item = null, $extra = [])
     {
         if (!empty($item) && !empty($item[$this->titlefield])) {
-            $extra = array_merge($extra, ['title' => $item[$this->titlefield]]);
+            $extra = array_merge($extra, ['title' => $this->getSlug($item[$this->titlefield])]);
         }
         return $this->getActionURL('display', $itemid, $extra);
     }

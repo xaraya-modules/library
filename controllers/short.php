@@ -36,12 +36,6 @@ use ShortActionController;
 **/
 class LibraryShortController extends ShortActionController
 {
-    public static function getSlug(string $text): string
-    {
-        $text = strtolower(str_replace(' ', '_', $text));
-        return rawurlencode($text);
-    }
-
     public function decode(array $data = []): array
     {
         $token1 = $this->firstToken();
@@ -96,7 +90,8 @@ class LibraryShortController extends ShortActionController
                     $path[] = $params['itemid'];
                     unset($params['itemid']);
                     if (!empty($params['title'])) {
-                        $path[] = $this->getSlug($params['title']);
+                        // @todo assume already slugified
+                        $path[] = $params['title'];
                         unset($params['title']);
                     }
                 } else {

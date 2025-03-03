@@ -58,11 +58,11 @@ class LibraryLinkObjectList extends DataObjectList
     {
         if (!isset($this->action_urls)) {
             $this->action_urls = [];
-            $this->action_urls['display'] = $this->getDisplayLink('[itemid]');
+            $this->action_urls['display'] = $this->getDisplayLink('1234567890');
         }
         $item ??= [];
         $replace = [
-            '[itemid]' => $itemid,
+            '1234567890' => $itemid,
         ];
         $options = [];
         $options['display'] = [
@@ -76,8 +76,10 @@ class LibraryLinkObjectList extends DataObjectList
 
     public function getDisplayLink($itemid = null, $item = null, $extra = [])
     {
+        // do something with item here, e.g. add title to extra params for nicer links
         //if (!empty($item) && !empty($item[$this->titlefield])) {
-        //    $extra = array_merge($extra, ['title' => $item[$this->titlefield]]);
+        //    $slug = $this->mls()->slug($item[$this->titlefield]);
+        //    $extra = array_merge($extra, ['title' => $slug]);
         //}
         return $this->getActionURL('display', $itemid, $extra);
     }

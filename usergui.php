@@ -3,7 +3,7 @@
 /**
  * @package modules\library
  * @category Xaraya Web Applications Framework
- * @version 2.5.6
+ * @version 2.7.0
  * @copyright see the html/credits.html file in this release
  * @license GPL {@link http://www.gnu.org/licenses/gpl.html}
  * @link https://github.com/mikespub/xaraya-modules
@@ -35,7 +35,7 @@ class UserGui implements UserGuiInterface
     /** @use UserGuiTrait<Module> */
     use UserGuiTrait;
 
-    public static string $prefix = 'lb_';
+    public static string $prefix = 'lb_';  // map entity to object by adding prefix in handle()
 
     /**
      * User main GUI function
@@ -125,32 +125,17 @@ class UserGui implements UserGuiInterface
      * User view GUI function
      * @param array<string, mixed> $args
      * @return string
+     * @see \Xaraya\Modules\DynamicData\UserGui::handle()
      */
     public function view(array $args = [])
     {
-        // use entity and action to avoid conflict with module & func or object & method
-        $this->var()->check('entity', $args['entity'], 'str:1');
-        if (!empty($args['entity'])) {
-            $args['object'] ??= self::$prefix . $args['entity'];
-            unset($args['entity']);
-        }
-        $this->var()->check('action', $args['action'], 'str:1');
-        if (!empty($args['action'])) {
-            $args['method'] ??= $args['action'];
-            unset($args['action']);
-        }
-        // use the 'default' template instead of the module 'user' template here
-        \xarTpl::setPageTemplateName('default');
-        sys::import('modules.dynamicdata.class.userinterface');
-
-        $interface = new \DataObjectUserInterface($args);
-        return $interface->handle($args, $this->getContext());
+        return $this->handle($args);
     }
 
     /**
      * User import GUI function
      * @param array<string, mixed> $args
-     * @return array<mixed>|void
+     * @return array<mixed>|bool
      */
     public function import(array $args = [])
     {
@@ -160,5 +145,6 @@ class UserGui implements UserGuiInterface
         //$import->setContext($this->getContext());
         //return $import->main($args);
         $this->ctl()->redirect($this->mod()->getURL('import', 'main'));
+        return true;
     }
 }

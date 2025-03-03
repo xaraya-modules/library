@@ -24,6 +24,15 @@ use DefaultActionController;
 
 /**
  * Use entity and action to avoid conflict with module & func or object & method
+ *
+ * Supported URLs :
+ *
+ * index.php?module=library&entity={entity}
+ * index.php?module=library&entity={entity}&itemid={itemid}
+ * index.php?module=library&entity={entity}&itemid={itemid}&title={title}
+ * index.php?module=library&entity={entity}&action={action}
+ * index.php?module=library&entity={entity}&action={action}&itemid={itemid}
+ *
  */
 class LibraryDefaultController extends DefaultActionController
 {
