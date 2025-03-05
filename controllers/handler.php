@@ -19,9 +19,7 @@ use Xaraya\Routing\RouterInterface;
  * ```
  * /library/
  * /library/admin/{func} (not used here)
- * /library/admin/{func}/{more} (not used here)
  * /library/user/{func} (not used here)
- * /library/user/{func}/{more} (not used here)
  * /library/{entity}/
  * /library/{entity}/{itemid} (numeric)
  * /library/{entity}/{itemid}/{title}

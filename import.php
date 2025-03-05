@@ -21,6 +21,12 @@ namespace Xaraya\Modules\Library;
  */
 class Import extends UserGui
 {
+    public function configure()
+    {
+        $this->setModType('import');
+        // don't call xarMod:apiLoad() for library import API
+    }
+
     /**
      * Import main GUI function
      * @param array<string, mixed> $args
