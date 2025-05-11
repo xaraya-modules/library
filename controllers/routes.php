@@ -1,18 +1,18 @@
 <?php
 
 /**
- * Library handler class for routing & dispatching outside Xaraya
+ * Library routes class for routing & dispatching outside Xaraya
  *
- * @todo experiment using module classes and methods as handler
+ * Experiment using module classes and methods as handler
  */
 
 namespace Xaraya\Modules\Library;
 
-use Xaraya\Routing\ModuleHandler;
+use Xaraya\Routing\ModuleRoutes;
 use Xaraya\Routing\RouterInterface;
 
 /**
- * Library handler class for routing & dispatching outside Xaraya
+ * Library routes class for routing & dispatching outside Xaraya
  *
  * Supported URLs :
  *
@@ -26,8 +26,9 @@ use Xaraya\Routing\RouterInterface;
  * /library/{entity}/{action} (non-numeric)
  * /library/{entity}/{action}/{itemid}
  * ```
+ * @phpstan-import-type RouteDef from ModuleRoutes
  */
-class LibraryHandler extends ModuleHandler
+class LibraryRoutes extends ModuleRoutes
 {
     public static string $moduleName = 'library';
     public static string $objectName = 'library';
