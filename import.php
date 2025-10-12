@@ -17,7 +17,6 @@ namespace Xaraya\Modules\Library;
  * Class to handle the Library Import GUI
  *
  * @method mixed importmain(array $args)
- * @extends UserGui
  */
 class Import extends UserGui
 {

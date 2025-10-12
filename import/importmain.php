@@ -14,6 +14,7 @@
 namespace Xaraya\Modules\Library\Import;
 
 use Xaraya\Modules\MethodClass;
+use Xaraya\Modules\Library\Import;
 use Xaraya\Modules\Library\UserApi;
 use Xaraya\DataObject\Export\PhpExporter;
 use Xaraya\DataObject\Import\PhpImporter;
@@ -33,6 +34,7 @@ sys::import('xaraya.modules.method');
 
 /**
  * Class to import the library database structure
+ * @extends MethodClass<Import>
  */
 class ImportmainMethod extends MethodClass
 {
