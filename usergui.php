@@ -16,11 +16,7 @@ namespace Xaraya\Modules\Library;
 use Xaraya\Modules\DynamicData\Traits\UserGuiInterface;
 use Xaraya\Modules\DynamicData\Traits\UserGuiTrait;
 use BadParameterException;
-use xarController;
-use xarDDObject;
 use xarMod;
-use xarSec;
-use xarVar;
 use sys;
 
 sys::import('modules.dynamicdata.class.objects.factory');

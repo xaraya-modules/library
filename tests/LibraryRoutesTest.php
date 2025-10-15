@@ -4,7 +4,6 @@ namespace Xaraya\Modules\Library\Tests;
 
 use Xaraya\Modules\TestHelper;
 use Xaraya\Routing\Dispatcher;
-use Xaraya\Routing\RouterInterface;
 use Xaraya\Routing\Routing;
 use Xaraya\Modules\Library\LibraryRoutes;
 use Xaraya\Modules\Library\UserGui;

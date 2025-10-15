@@ -20,8 +20,6 @@ use Xaraya\DataObject\Export\PhpExporter;
 use Xaraya\DataObject\Import\PhpImporter;
 use DataObjectFactory;
 use TableObjectDescriptor;
-use xarMod;
-use xarModVars;
 use sys;
 
 sys::import('modules.dynamicdata.class.objects.factory');
