@@ -21,6 +21,7 @@ use sys;
 
 sys::import('xaraya.mapper.controllers.default');
 use DefaultActionController;
+use Xaraya\Services\xar;
 
 /**
  * Use entity and action to avoid conflict with module & func or object & method
@@ -43,15 +44,18 @@ class LibraryDefaultController extends DefaultActionController
      */
     public function decode(array $data = []): array
     {
-        xarVar::fetch('module', 'regexp:/^[a-z][a-z_0-9]*$/', $module, null, xarVar::NOT_REQUIRED);
+        $xar = xar::getServicesClass();
+        // @todo avoid duplication of param parsing - see xarRequest::setURL()
+        $request = $xar->req()->getRequest();
+        $xar->var()->find('module', $module, 'regexp:/^[a-z][a-z_0-9]*$/');
         if (null != $module) {
-            xarVar::fetch('type', "regexp:/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/:", $data['type'], xarController::getRequest()->getType(), xarVar::NOT_REQUIRED);
-            xarVar::fetch('func', "regexp:/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/:", $data['func'], xarController::getRequest()->getFunction(), xarVar::NOT_REQUIRED);
+            $xar->var()->find('type', $data['type'], "regexp:/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/:", $request->getType());
+            $xar->var()->find('func', $data['func'], "regexp:/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/:", $request->getFunction());
         }
-        xarVar::fetch('entity', 'regexp:/^[a-z][a-z_0-9]*$/', $entity, null, xarVar::NOT_REQUIRED);
+        $xar->var()->find('entity', $entity, 'regexp:/^[a-z][a-z_0-9]*$/');
         if (null != $entity) {
             $data['entity'] = $entity;
-            xarVar::fetch('action', "regexp:/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/:", $data['action'], null, xarVar::NOT_REQUIRED);
+            $xar->var()->find('action', $data['action'], "regexp:/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/:");
         }
         // basically ignore object & method here, e.g. in POST of query ui handler
         return $data;
