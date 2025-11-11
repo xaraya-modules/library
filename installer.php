@@ -15,9 +15,6 @@ namespace Xaraya\Modules\Library;
 
 use Xaraya\Modules\InstallerClass;
 use xarMod;
-use sys;
-
-sys::import('xaraya.modules.installer');
 
 /**
  * Handle module installer functions

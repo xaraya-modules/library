@@ -21,12 +21,6 @@ use DataObject;
 use DataObjectList;
 use DataObjectFactory;
 use Query;
-use sys;
-
-sys::import('modules.dynamicdata.class.objects.factory');
-sys::import('modules.dynamicdata.traits.userapi');
-sys::import('xaraya.database.databasetrait');
-sys::import('xaraya.structures.query');
 
 /**
  * Class to handle the Library User API

@@ -17,11 +17,6 @@ use Xaraya\Modules\DynamicData\Traits\UserGuiInterface;
 use Xaraya\Modules\DynamicData\Traits\UserGuiTrait;
 use BadParameterException;
 use xarMod;
-use sys;
-
-sys::import('modules.dynamicdata.class.objects.factory');
-sys::import('modules.dynamicdata.traits.usergui');
-sys::import('modules.library.userapi');
 
 /**
  * Class instance to handle the Library User GUI

@@ -20,15 +20,6 @@ use Xaraya\DataObject\Export\PhpExporter;
 use Xaraya\DataObject\Import\PhpImporter;
 use DataObjectFactory;
 use TableObjectDescriptor;
-use sys;
-
-sys::import('modules.dynamicdata.class.objects.factory');
-sys::import('modules.dynamicdata.class.objects.virtual');
-sys::import('modules.dynamicdata.class.export.generic');
-sys::import('modules.dynamicdata.class.import.generic');
-sys::import('modules.library.userapi');
-sys::import('modules.library.usergui');
-sys::import('xaraya.modules.method');
 
 /**
  * Class to import the library database structure

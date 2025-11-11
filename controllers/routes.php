@@ -48,7 +48,7 @@ class LibraryRoutes extends ModuleRoutes
      * Find route uri based on params
      * @param array<string, mixed> $params
      */
-    public static function findRoute(RouterInterface $router, array $params): string|null
+    public static function findRoute(RouterInterface $router, array $params): ?string
     {
         return parent::findRoute($router, $params);
     }

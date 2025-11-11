@@ -15,11 +15,6 @@
 
 namespace Xaraya\Modules\Library;
 
-use xarController;
-use xarVar;
-use sys;
-
-sys::import('xaraya.mapper.controllers.default');
 use DefaultActionController;
 use Xaraya\Services\xar;
 

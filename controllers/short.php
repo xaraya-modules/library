@@ -16,9 +16,6 @@
 namespace Xaraya\Modules\Library;
 
 use xarRequest;
-use sys;
-
-sys::import('xaraya.mapper.controllers.short');
 use ShortActionController;
 
 /**
