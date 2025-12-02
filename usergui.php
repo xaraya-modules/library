@@ -16,7 +16,6 @@ namespace Xaraya\Modules\Library;
 use Xaraya\Modules\DynamicData\Traits\UserGuiInterface;
 use Xaraya\Modules\DynamicData\Traits\UserGuiTrait;
 use BadParameterException;
-use xarMod;
 
 /**
  * Class instance to handle the Library User GUI
@@ -108,7 +107,7 @@ class UserGui implements UserGuiInterface
         $args['description'] ??= '';
         $args['current'] = $userapi->getCurrentDatabase($this->getContext());
         // use the 'default' template instead of the module 'user' template here
-        \xarTpl::setPageTemplateName('default');
+        $this->tpl()->setPageTemplateName('default');
         return $args;
     }
 
@@ -130,7 +129,7 @@ class UserGui implements UserGuiInterface
      */
     public function import(array $args = [])
     {
-        //$module = xarMod::getModule('library');
+        //$module = $this->mod()->getModule('library');
         ///** @var Import $import */
         //$import = $module->getComponent('Import');
         //$import->setContext($this->getContext());

@@ -14,7 +14,6 @@
 namespace Xaraya\Modules\Library;
 
 use Xaraya\Modules\InstallerClass;
-use xarMod;
 
 /**
  * Handle module installer functions
@@ -72,7 +71,7 @@ class Installer extends InstallerClass
             'lb_tags',
         ];
 
-        if (!xarMod::apiFunc('modules', 'admin', 'standardinstall', ['module' => $module, 'objects' => $objects])) {
+        if (!$this->mod()->apiFunc('modules', 'admin', 'standardinstall', ['module' => $module, 'objects' => $objects])) {
             return false;
         }
 
@@ -136,6 +135,6 @@ class Installer extends InstallerClass
      */
     public function delete()
     {
-        return xarMod::apiFunc('modules', 'admin', 'standarddeinstall', ['module' => 'library']);
+        return $this->mod()->apiFunc('modules', 'admin', 'standarddeinstall', ['module' => 'library']);
     }
 }

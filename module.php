@@ -16,7 +16,7 @@ namespace Xaraya\Modules\Library;
 use Xaraya\Modules\ModuleClass;
 
 /**
- * Get library module classes via xarMod::getModule()
+ * Get library module classes via xar::mod()->getModule()
  */
 class Module extends ModuleClass
 {

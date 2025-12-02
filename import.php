@@ -23,7 +23,7 @@ class Import extends UserGui
     public function configure()
     {
         $this->setModType('import');
-        // don't call xarMod:apiLoad() for library import API
+        // don't call xar::mod()->apiLoad() for library import API
     }
 
     /**

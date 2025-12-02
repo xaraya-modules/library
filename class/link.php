@@ -62,7 +62,7 @@ class LibraryLinkObjectList extends DataObjectList
         ];
         $options = [];
         $options['display'] = [
-            'otitle' => xarML('Display'),
+            'otitle' => $this->ml('Display'),
             'oicon'  => 'display.png',
             'olink'  => str_replace(array_keys($replace), array_values($replace), $this->action_urls['display']),
             'ojoin'  => '',

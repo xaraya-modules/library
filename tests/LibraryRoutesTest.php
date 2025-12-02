@@ -7,8 +7,8 @@ use Xaraya\Routing\Dispatcher;
 use Xaraya\Routing\Routing;
 use Xaraya\Modules\Library\LibraryRoutes;
 use Xaraya\Modules\Library\UserGui;
+use Xaraya\Services\xar;
 use xarClassMap;
-use xarTpl;
 
 final class LibraryRoutesTest extends TestHelper
 {
@@ -62,7 +62,7 @@ final class LibraryRoutesTest extends TestHelper
 
     public function testLibraryMain(): void
     {
-        xarTpl::init();
+        xar::tpl()->init();
 
         $router = new Routing(function () {
             return LibraryRoutes::getRoutes();
@@ -97,7 +97,7 @@ final class LibraryRoutesTest extends TestHelper
 
     public function testLibraryEntity(): void
     {
-        xarTpl::init();
+        xar::tpl()->init();
 
         $router = new Routing(function () {
             return LibraryRoutes::getRoutes();
