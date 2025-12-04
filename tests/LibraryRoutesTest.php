@@ -31,7 +31,7 @@ final class LibraryRoutesTest extends TestHelper
         $expected = 1;
         $this->assertCount($expected, $routes);
 
-        $classTypes = xarClassMap::getModuleClassTypes($modName);
+        $classTypes = xarClassMap::getModuleClasses($modName);
         $expected = 'usergui';
         $this->assertArrayHasKey($expected, $classTypes);
         $expected = 4;
