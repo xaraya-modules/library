@@ -13,8 +13,8 @@
 
 namespace Xaraya\Modules\Library;
 
-use Xaraya\Database\DatabaseInterface;
-use Xaraya\Database\DatabaseTrait;
+use Xaraya\Database\WithDatabaseInterface;
+use Xaraya\Database\WithDatabaseTrait;
 use Xaraya\Modules\DynamicData\Traits\UserApiInterface;
 use Xaraya\Modules\DynamicData\Traits\UserApiTrait;
 use DataObject;
@@ -25,9 +25,9 @@ use Query;
 /**
  * Class to handle the Library User API
  */
-class UserApi implements DatabaseInterface, UserApiInterface
+class UserApi implements WithDatabaseInterface, UserApiInterface
 {
-    use DatabaseTrait;
+    use WithDatabaseTrait;
     /** @use UserApiTrait<Module> */
     use UserApiTrait;
     // @see https://www.php.net/manual/en/language.oop5.traits.php Example #5 Conflict Resolution
