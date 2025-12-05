@@ -50,7 +50,7 @@ class UserApi implements WithDatabaseInterface, UserApiInterface
         if (empty($dbConnIndex)) {
             return $result;
         }
-        $q = new Query('SELECT', 'books', ['id', 'title'], $dbConnIndex);
+        $q = new Query('SELECT', 'books', ['id', 'title'], $dbConnIndex, $this->getStaticServices());
         if (!$q->run()) {
             return null;
         }
@@ -66,7 +66,7 @@ class UserApi implements WithDatabaseInterface, UserApiInterface
     public function getBooksObject($name, $context = null)
     {
         $this->setCurrentDatabase($name, $context);
-        $object = DataObjectFactory::getObject(['name' => static::$prefix . 'books'], $context);
+        $object = DataObjectFactory::getObject(['name' => static::$prefix . 'books'], $context, $this->getStaticServices());
         return $object;
     }
 
@@ -79,7 +79,7 @@ class UserApi implements WithDatabaseInterface, UserApiInterface
     public function getBooksObjectList($name, $context = null)
     {
         $this->setCurrentDatabase($name, $context);
-        $object = DataObjectFactory::getObjectList(['name' => static::$prefix . 'books'], $context);
+        $object = DataObjectFactory::getObjectList(['name' => static::$prefix . 'books'], $context, $this->getStaticServices());
         return $object;
     }
 }

@@ -39,9 +39,9 @@ class LibraryDefaultController extends DefaultActionController
      */
     public function decode(array $data = []): array
     {
-        $xar = xar::getServicesClass();
+        $request = $this->getRequest();
+        $xar = $request->getServicesClass();
         // @todo avoid duplication of param parsing - see xarRequest::setURL()
-        $request = $xar->req()->getRequest();
         $xar->var()->find('module', $module, 'regexp:/^[a-z][a-z_0-9]*$/');
         if (null != $module) {
             $xar->var()->find('type', $data['type'], "regexp:/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/:", $request->getType());
