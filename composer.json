@@ -11,10 +11,10 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "conflict": {
-        "xaraya/core": "<2.4.1"
+        "xaraya/core": "<2.8.1"
     },
     "require-dev": {
-        "mikespub/php-epub-meta": "^3.5"
+        "mikespub/php-epub-meta": "^4.0"
     },
     "autoload": {
         "classmap": ["./"]
