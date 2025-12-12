@@ -26,7 +26,7 @@ class LibraryLinkObject extends DataObject
     public function getActionURL($action = '', $itemid = null, $extra = [])
     {
         //return parent::getActionURL($action, $itemid, $extra);
-        $extra['entity'] ??= substr($this->name, 3);
+        $extra['entity'] ??= substr($this->name, strlen(LibraryObject::PREFIX));
         if (!empty($action)) {
             $extra['action'] ??= $action;
         }
@@ -83,7 +83,7 @@ class LibraryLinkObjectList extends DataObjectList
     public function getActionURL($action = '', $itemid = null, $extra = [])
     {
         //return parent::getActionURL($action, $itemid, $extra);
-        $extra['entity'] ??= substr($this->name, 3);
+        $extra['entity'] ??= substr($this->name, strlen(LibraryObject::PREFIX));
         if (!empty($action)) {
             $extra['action'] ??= $action;
         }

@@ -20,6 +20,8 @@ use DataObjectList;
 
 class LibraryObject extends DataObject
 {
+    public const PREFIX = 'lb_';
+
     public $linktype = 'object';          // optional link type for use in getActionURL() (defaults to 'user' for module URLs, 'object' for object URLs, 'other' for middleware)
     public $titlefield = '';
 
@@ -31,16 +33,12 @@ class LibraryObject extends DataObject
     public function action(array $args = [])
     {
         $itemid = $this->getItem($args);
-        if ($this->name == 'lb_books') {
-            return "Action for book $itemid!";
-        } else {
-            return "Action for item $itemid?";
-        }
+        return "Action for item $itemid?";
     }
 
     public function getActionURL($action = '', $itemid = null, $extra = [])
     {
-        $extra['entity'] ??= substr($this->name, 3);
+        $extra['entity'] ??= substr($this->name, strlen(self::PREFIX));
         if (!empty($action)) {
             $extra['action'] ??= $action;
         }
@@ -82,9 +80,6 @@ class LibraryObjectList extends DataObjectList
         if (!isset($this->action_urls)) {
             $this->action_urls = [];
             $this->action_urls['display'] = $this->getDisplayLink('1234567890', [$this->titlefield => 'replace_title']);
-            if ($this->name == 'lb_books') {
-                $this->action_urls['action'] = $this->getActionURL('action', '1234567890');
-            }
         }
         $item ??= [];
         $title = (string) ($item[$this->titlefield] ?? '');
@@ -99,14 +94,6 @@ class LibraryObjectList extends DataObjectList
             'olink'  => str_replace(array_keys($replace), array_values($replace), $this->action_urls['display']),
             'ojoin'  => '',
         ];
-        if ($this->name == 'lb_books') {
-            $options['action'] = [
-                'otitle' => $this->ml('Action'),
-                'oicon'  => 'go-next.png',
-                'olink'  => str_replace('1234567890', $itemid, $this->action_urls['action']),
-                'ojoin'  => '',
-            ];
-        }
         return $options;
     }
 
@@ -120,7 +107,7 @@ class LibraryObjectList extends DataObjectList
 
     public function getActionURL($action = '', $itemid = null, $extra = [])
     {
-        $extra['entity'] ??= substr($this->name, 3);
+        $extra['entity'] ??= substr($this->name, strlen(LibraryObject::PREFIX));
         if (!empty($action)) {
             $extra['action'] ??= $action;
         }

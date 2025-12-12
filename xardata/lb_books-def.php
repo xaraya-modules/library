@@ -17,8 +17,8 @@ $object = [
         'dbConnIndex' => 1,
         'dbConnArgs' => '["Xaraya\\\\Modules\\\\Library\\\\UserApi","getDbConnArgs"]',
     ],
-    'class' => 'Xaraya\\Modules\\Library\\LibraryObject',
-    'filepath' => 'modules/library/class/object.php',
+    'class' => 'Xaraya\\Modules\\Library\\LibraryBook',
+    'filepath' => 'modules/library/class/book.php',
     'sources'
     => [
         'books' => 'books',
