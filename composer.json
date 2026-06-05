@@ -14,7 +14,7 @@
         "xaraya/core": "<2.8.1"
     },
     "require-dev": {
-        "mikespub/php-epub-meta": "^4.0"
+        "mikespub/php-epub-meta": "^4.1"
     },
     "autoload": {
         "classmap": ["./"]
